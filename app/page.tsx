@@ -9,7 +9,7 @@ import { Footer } from "./components/Footer";
 
 export default function Home() {
   return (
-    <div className="bg-[#101117] min-h-screen text-[#ededf3] font-sans selection:bg-[#5266eb]/30">
+    <div className="min-h-[100dvh] bg-[var(--background)] text-[var(--text-primary)] selection:bg-[var(--accent)]/30">
       <Nav />
       <main>
         {/* The Scrollytelling Hero locks the viewport and plays the story */}

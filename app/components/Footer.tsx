@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useTranslation } from "../contexts/I18nProvider";
 
 export function Footer() {
@@ -18,6 +17,7 @@ export function Footer() {
               <div className="w-8 h-8 rounded-xl bg-[var(--accent)] flex items-center justify-center shadow-lg shadow-[var(--accent)]/20">
                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                    <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+                   <circle cx="12" cy="13" r="3" />
                  </svg>
               </div>
               <span className="text-[var(--text-primary)] text-xl font-bold tracking-tight">XenSnip</span>
@@ -45,12 +45,6 @@ export function Footer() {
                 className="text-[var(--text-muted)] hover:text-[var(--text-primary)] text-sm font-bold transition-colors"
               >
                 {t("footer.license")}
-              </a>
-              <a 
-                href="#" 
-                className="text-[var(--text-muted)] hover:text-[var(--text-primary)] text-sm font-bold transition-colors"
-              >
-                {t("footer.privacy")}
               </a>
             </div>
             <div className="text-[var(--accent)] text-[10px] uppercase tracking-[0.4em] font-black opacity-40">

@@ -1,9 +1,10 @@
 "use client";
 
-import { useScroll, useTransform, motion, MotionValue, useSpring } from "framer-motion";
-import { useRef, useState, useEffect, useMemo } from "react";
+import { useScroll, useTransform, MotionValue, useSpring } from "framer-motion";
+import { useRef, useState, useEffect, useMemo, type RefObject } from "react";
 import Image from "next/image";
 import { useTranslation } from "../contexts/I18nProvider";
+import { MotionDiv, MotionH1, MotionLi, MotionSection } from "./motion-compat";
 
 // ─── UTILS ───────────────────────────────────────────────────────────────────
 
@@ -24,6 +25,18 @@ interface BeatDef {
   id: string;
   visual: BeatVisual;
   scrollRange: [number, number];
+}
+
+interface BeatContent {
+  label: string;
+  title: string;
+  bullets: string[];
+}
+
+function getBeatImageSrc(visual: BeatVisual) {
+  if (visual === "before") return "/images/before_polished.png";
+  if (visual === "proof") return "/images/proof_polished.png";
+  return "/images/after_polished.png";
 }
 
 const BEATS_CONFIG: BeatDef[] = [
@@ -75,36 +88,36 @@ function IntroScreen({ progress }: { progress: MotionValue<number> }) {
   }, []);
 
   return (
-    <motion.div 
+    <MotionDiv 
       style={{ opacity, scale, y, pointerEvents: opacity.get() > 0 ? "auto" : "none" }}
       className="absolute inset-0 flex flex-col items-center justify-center bg-[var(--background)] z-50 px-6"
     >
-      <motion.h1 
+      <MotionH1 
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="text-5xl md:text-7xl lg:text-8xl font-bold text-[var(--text-primary)] text-center"
+        className="text-center text-5xl font-bold tracking-[-0.03em] text-[var(--text-primary)] md:text-7xl lg:text-8xl"
       >
         {t("hero.welcome")}
-      </motion.h1>
-      <motion.div
+      </MotionH1>
+      <MotionDiv
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6, duration: 0.8 }}
       >
         <Typewriter text={t("hero.subtitle")} start={started} />
-      </motion.div>
-    </motion.div>
+      </MotionDiv>
+    </MotionDiv>
   );
 }
 
 function SplitTextSide({ progress }: { progress: MotionValue<number> }) {
   const { t } = useTranslation();
-  const beatsData = t("hero.beats");
+  const beatsData = t<Record<string, BeatContent>>("hero.beats");
   
   return (
     <div className="relative h-full flex flex-col justify-center">
-      {BEATS_CONFIG.map((beat, index) => {
+      {BEATS_CONFIG.map((beat) => {
         const beatContent = beatsData?.[beat.id];
         const [start, end] = beat.scrollRange;
         const fadeInEnd = start + 0.05;
@@ -117,7 +130,7 @@ function SplitTextSide({ progress }: { progress: MotionValue<number> }) {
         const y = useTransform(progress, range, [40, 0, 0, -40]);
         
         return (
-          <motion.div 
+          <MotionDiv 
             key={beat.id}
             style={{ opacity, y, pointerEvents: opacity.get() > 0.5 ? "auto" : "none" }}
             className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex flex-col"
@@ -139,31 +152,44 @@ function SplitTextSide({ progress }: { progress: MotionValue<number> }) {
                 const bX = useTransform(progress, bulletRange, [-20, 0, 0, -20]);
 
                 return (
-                  <motion.li 
+                  <MotionLi 
                     key={i}
                     style={{ opacity: bOpacity, x: bX }}
                     className="flex items-start text-[var(--text-secondary)] text-lg"
                   >
                     <span className="mr-3 mt-2 h-2 w-2 rounded-full bg-[var(--accent)] shrink-0" />
                     <span>{bullet}</span>
-                  </motion.li>
+                  </MotionLi>
                 );
               })}
             </ul>
 
+            <div className="mt-10 lg:hidden">
+              <div className="card-surface overflow-hidden rounded-2xl">
+                <Image
+                  src={getBeatImageSrc(beat.visual)}
+                  alt={beatContent?.label || ""}
+                  width={1200}
+                  height={800}
+                  className="h-auto w-full"
+                />
+              </div>
+            </div>
+
             {beat.id === "result" && (
-              <motion.div 
+              <MotionDiv 
                 className="mt-12"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: false }}
               >
-                <a href="https://github.com/BiViPi/xensnip/releases/latest" className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-white bg-[var(--accent)] hover:bg-[var(--accent-hover)] rounded-full transition-colors shadow-lg shadow-[var(--accent)]/10 hover:scale-105">
-                  {t("cta.download")}
+                <a href="https://github.com/BiViPi/xensnip/releases/latest" className="lightning-hover relative inline-flex items-center justify-center rounded-2xl bg-[var(--accent)] px-8 py-4 text-base font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[var(--accent-hover)] shadow-lg shadow-[0_18px_34px_-16px_rgba(82,102,235,0.75)]">
+                  <span className="pointer-events-none absolute inset-0 rounded-2xl border border-white/20" />
+                  <span className="relative z-10">{t("cta.download")}</span>
                 </a>
-              </motion.div>
+              </MotionDiv>
             )}
-          </motion.div>
+          </MotionDiv>
         );
       })}
     </div>
@@ -172,7 +198,7 @@ function SplitTextSide({ progress }: { progress: MotionValue<number> }) {
 
 function SplitVisualSide({ progress }: { progress: MotionValue<number> }) {
   const { t } = useTranslation();
-  const beatsData = t("hero.beats");
+  const beatsData = t<Record<string, BeatContent>>("hero.beats");
   
   return (
     <div className="relative h-full flex items-center justify-center w-full">
@@ -188,15 +214,15 @@ function SplitVisualSide({ progress }: { progress: MotionValue<number> }) {
         // eslint-disable-next-line react-hooks/rules-of-hooks
         const scale = useTransform(progress, range, [0.95, 1, 1, 0.95]);
 
-        const imgSrc = beat.visual === "before" ? "/images/before_polished.png" : "/images/after_polished.png";
+        const imgSrc = getBeatImageSrc(beat.visual);
 
         return (
-          <motion.div 
+          <MotionDiv 
             key={beat.id}
             style={{ opacity, scale }}
             className="absolute inset-0 flex items-center justify-center w-full"
           >
-            <div className="relative w-full rounded-2xl overflow-hidden border border-[var(--border)] shadow-[var(--shadow-card)]">
+            <div className="card-surface relative w-full overflow-hidden rounded-2xl">
               <Image
                 src={imgSrc}
                 alt={beatContent?.label || ""}
@@ -206,7 +232,7 @@ function SplitVisualSide({ progress }: { progress: MotionValue<number> }) {
                 priority
               />
             </div>
-          </motion.div>
+          </MotionDiv>
         );
       })}
     </div>
@@ -218,7 +244,7 @@ function SplitVisualSide({ progress }: { progress: MotionValue<number> }) {
 export function HeroScrollytelling() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: containerRef as RefObject<HTMLElement>,
     offset: ["start start", "end end"]
   });
   const { t } = useTranslation();
@@ -230,7 +256,7 @@ export function HeroScrollytelling() {
   });
 
   return (
-    <motion.section
+    <MotionSection
       id="workflow"
       ref={containerRef}
       className="relative h-[600vh] bg-[var(--background)]"
@@ -248,7 +274,7 @@ export function HeroScrollytelling() {
           </div>
         </div>
 
-        <motion.div 
+        <MotionDiv 
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-50 z-0"
           style={{ 
             opacity: useTransform(smoothProgress, [0, 0.05, 0.95, 1], [0.5, 0, 0, 0]) 
@@ -256,15 +282,15 @@ export function HeroScrollytelling() {
         >
           <span className="text-xs font-semibold uppercase text-[var(--text-muted)] mb-4">{t("hero.scroll")}</span>
           <div className="w-[1px] h-12 bg-[var(--border)] overflow-hidden relative">
-            <motion.div 
+            <MotionDiv 
               className="absolute top-0 left-0 w-full h-1/2 bg-[var(--accent)]"
               animate={{ y: ["-100%", "200%"] }}
               transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
             />
           </div>
-        </motion.div>
+        </MotionDiv>
 
       </div>
-    </motion.section>
+    </MotionSection>
   );
 }

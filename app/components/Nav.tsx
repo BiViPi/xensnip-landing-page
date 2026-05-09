@@ -1,9 +1,11 @@
 "use client";
 
-import { motion, useScroll } from "framer-motion";
+import Link from "next/link";
+import { useScroll } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useTranslation } from "../contexts/I18nProvider";
 import { useTheme } from "../contexts/ThemeProvider";
+import { MotionNav } from "./motion-compat";
 
 export function Nav() {
   const { scrollY } = useScroll();
@@ -12,13 +14,13 @@ export function Nav() {
   const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
-    return scrollY.onChange((latest) => {
+    return scrollY.on("change", (latest) => {
       setHasScrolled(latest > 50);
     });
   }, [scrollY]);
 
   return (
-    <motion.nav
+    <MotionNav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -30,7 +32,7 @@ export function Nav() {
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-3 group">
+        <Link href="/" className="flex items-center gap-3 group">
           <div className="w-10 h-10 rounded-xl bg-[var(--accent)] flex items-center justify-center shadow-lg shadow-[var(--accent)]/20 group-hover:scale-110 transition-transform">
              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
@@ -38,7 +40,7 @@ export function Nav() {
              </svg>
           </div>
           <span className="text-xl font-bold text-[var(--text-primary)] tracking-tight">XenSnip</span>
-        </a>
+        </Link>
 
         {/* Links - Desktop */}
         <div className="hidden md:flex items-center gap-10">
@@ -53,7 +55,7 @@ export function Nav() {
           <div className="flex items-center gap-4 border-r border-[var(--border)] pr-6">
             <button 
               onClick={toggleTheme} 
-              className="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
+              className="rounded-xl p-2 text-[var(--text-muted)] transition-all hover:bg-[var(--border-soft)] hover:text-[var(--text-primary)]"
               aria-label="Toggle Theme"
             >
               {theme === 'dark' ? (
@@ -64,7 +66,7 @@ export function Nav() {
             </button>
             <button 
               onClick={() => setLocale(locale === 'en' ? 'vi' : 'en')} 
-              className="text-[var(--text-muted)] hover:text-[var(--text-primary)] font-bold text-sm transition-colors"
+              className="rounded-xl px-2.5 py-2 text-[var(--text-muted)] font-bold text-sm transition-all hover:bg-[var(--border-soft)] hover:text-[var(--text-primary)]"
             >
               {locale.toUpperCase()}
             </button>
@@ -72,12 +74,13 @@ export function Nav() {
 
           <a 
             href="https://github.com/BiViPi/xensnip/releases/latest"
-            className="hidden sm:inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold text-white bg-[var(--accent)] hover:bg-[var(--accent-hover)] rounded-full transition-all hover:scale-105 shadow-lg shadow-[var(--accent)]/10"
+            className="lightning-hover relative hidden sm:inline-flex items-center justify-center rounded-2xl bg-[var(--accent)] px-6 py-2.5 text-sm font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[var(--accent-hover)] shadow-lg shadow-[0_14px_30px_-16px_rgba(82,102,235,0.65)] hover:shadow-[0_20px_36px_-14px_rgba(82,102,235,0.75)]"
           >
-            {t("nav.download")}
+            <span className="pointer-events-none absolute inset-0 rounded-2xl border border-white/20" />
+            <span className="relative z-10">{t("nav.download")}</span>
           </a>
         </div>
       </div>
-    </motion.nav>
+    </MotionNav>
   );
 }

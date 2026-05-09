@@ -4,6 +4,7 @@
   --background: #ffffff;
   --surface: #f8f9fa;
   --surface-elevated: #ffffff;
+  --panel: #ffffff;
   --border: #e5e7eb;
   --border-soft: #f3f4f6;
   --text-primary: #111827;
@@ -11,14 +12,16 @@
   --text-muted: #9ca3af;
   --accent: #5266eb;
   --accent-hover: #4355cc;
+  --accent-soft: rgba(82, 102, 235, 0.06);
   --bright-rim: inset 0 1px 0 rgba(255,255,255,1), inset 0 0 0 1px rgba(0,0,0,0.05);
-  --shadow-card: 0 12px 40px -10px rgba(0,0,0,0.05);
+  --shadow-card: 0 4px 6px -1px rgba(0,0,0,0.04), 0 12px 40px -8px rgba(0,0,0,0.10);
 }
 
 .dark {
   --background: #101117;
   --surface: #16171f;
   --surface-elevated: #1c1d26;
+  --panel: #1c1d26;
   --border: #2d2e3e;
   --border-soft: #393947;
   --text-primary: #ededf3;
@@ -26,7 +29,8 @@
   --text-muted: #8c8c99;
   --accent: #5266eb;
   --accent-hover: #6577ff;
-  --bright-rim: inset 0 1px 0 rgba(255,255,255,0.05), inset 0 0 0 1px rgba(255,255,255,0.02);
+  --accent-soft: rgba(82, 102, 235, 0.12);
+  --bright-rim: inset 0 1px 0 rgba(255,255,255,0.12), inset 0 0 0 1px rgba(255,255,255,0.06);
   --shadow-card: 0 16px 40px -10px rgba(0,0,0,0.4), 0 8px 16px -8px rgba(0,0,0,0.4);
 }
 
@@ -47,6 +51,7 @@
 body {
   background-color: var(--background);
   color: var(--text-primary);
+  font-family: var(--font-geist-sans), sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -55,4 +60,24 @@ body {
   background-color: var(--surface-elevated);
   border: 1px solid var(--border);
   box-shadow: var(--shadow-card), var(--bright-rim);
+}
+
+.lightning-hover {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.lightning-hover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.12) 100%);
+  opacity: 0.65;
+  transition: opacity 0.3s ease;
+}
+
+.lightning-hover:hover::after {
+  opacity: 1;
 }

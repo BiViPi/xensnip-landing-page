@@ -1,26 +1,35 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useTranslation } from "../contexts/I18nProvider";
+import { MotionDiv } from "./motion-compat";
 
-// Data fetched from i18n
-// Comparison data includes highlights directly or via index logic
+interface ComparisonRow {
+  feature: string;
+  others: string;
+  xensnip: string;
+}
+
+interface ComparisonHeaders {
+  feature: string;
+  generic: string;
+  xensnip: string;
+}
 
 export function FriendlyComparison() {
   const { t } = useTranslation();
   
-  const headers = t("comparison.headers") || {};
-  const data = t("comparison.data") || [];
+  const headers = t<ComparisonHeaders>("comparison.headers");
+  const data = t<ComparisonRow[]>("comparison.data");
 
   return (
     <section className="relative w-full bg-[var(--background)] py-24 md:py-32 border-t border-[var(--border)]">
       <div className="max-w-4xl mx-auto px-6">
         
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-4">
+        <div className="mb-16 grid gap-6 md:grid-cols-[1.1fr_0.9fr] md:items-end">
+          <h2 className="text-left text-3xl font-bold text-[var(--text-primary)] md:text-4xl">
             {t("comparison.title")}
           </h2>
-          <p className="text-[var(--text-secondary)] text-lg">
+          <p className="text-left text-lg text-[var(--text-secondary)] md:text-right">
             {t("comparison.subtitle")}
           </p>
         </div>
@@ -33,11 +42,11 @@ export function FriendlyComparison() {
           </div>
 
           <div className="divide-y divide-[var(--border)] bg-[var(--surface)]">
-            {data.map((item: any, index: number) => {
+            {data.map((item, index: number) => {
               // highlight 1st and last elements as originally designed
               const highlight = index === 0 || index === data.length - 1;
               return (
-              <motion.div 
+              <MotionDiv 
                 key={index}
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -50,7 +59,7 @@ export function FriendlyComparison() {
                 <div className={`text-right font-bold ${highlight ? "text-[var(--accent)]" : "text-[var(--text-primary)]"}`}>
                   {item.xensnip}
                 </div>
-              </motion.div>
+              </MotionDiv>
             )})}
           </div>
         </div>

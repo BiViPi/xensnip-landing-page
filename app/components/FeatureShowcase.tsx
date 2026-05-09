@@ -1,14 +1,48 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "../contexts/I18nProvider";
 
+function CaptureIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
+      <circle cx="12" cy="13" r="3" />
+    </svg>
+  );
+}
+
+function AnnotateIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+    </svg>
+  );
+}
+
+function RedactIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 3l18 18" />
+      <path d="M9.9 4.24A10.94 10.94 0 0 1 12 4c5 0 9.27 3.11 11 8-1.04 2.96-3.22 5.24-5.96 6.42" />
+      <path d="M6.23 6.23A11.2 11.2 0 0 0 1 12c1.73 4.89 6 8 11 8 1.71 0 3.34-.36 4.82-1.01" />
+      <path d="M10.58 10.58A2 2 0 0 0 14 12" />
+    </svg>
+  );
+}
+
 const FEATURES_CONFIG = [
-  { id: "capture", image: "/images/feature_capture.png" },
-  { id: "annotate", image: "/images/feature_annotate.png" },
-  { id: "redact", image: "/images/feature_redact.png" }
+  { id: "capture", image: "/images/feature_capture.png", icon: <CaptureIcon /> },
+  { id: "annotate", image: "/images/feature_annotate.png", icon: <AnnotateIcon /> },
+  { id: "redact", image: "/images/feature_redact.png", icon: <RedactIcon /> },
 ];
+
+interface FeatureContent {
+  title: string;
+  description: string;
+}
 
 export function FeatureShowcase() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -22,29 +56,23 @@ export function FeatureShowcase() {
     setCurrentIndex((prev) => (prev - 1 + FEATURES_CONFIG.length) % FEATURES_CONFIG.length);
   };
 
-  const featuresData = t("showcase.features");
+  const featuresData = t<Record<string, FeatureContent>>("showcase.features");
 
   return (
-    <section id="features" className="relative w-full py-24 md:py-32 overflow-hidden bg-[var(--background)]">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        
-        {/* Header */}
-        <div className="mb-16 md:mb-24 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-[var(--text-primary)] mb-6">
+    <section id="features" className="relative w-full overflow-hidden bg-[var(--background)] py-24 md:py-32">
+      <div className="mx-auto max-w-7xl px-6 md:px-12">
+        <div className="mb-16 text-center md:mb-24">
+          <h2 className="mb-6 text-3xl font-bold text-[var(--text-primary)] md:text-5xl">
             {t("showcase.title")}
           </h2>
-          <p className="text-lg md:text-xl text-[var(--text-secondary)] max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-lg text-[var(--text-secondary)] md:text-xl">
             {t("showcase.subtitle")}
           </p>
         </div>
 
-        {/* Hybrid Interactive Stage */}
-        <div className="relative flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-          
-          {/* Left: Interactive Card */}
-          <div className="w-full lg:w-1/3 flex flex-col relative z-10">
-            <div className="card-surface rounded-3xl p-8 relative min-h-[280px] flex flex-col justify-center transition-all duration-300">
-              
+        <div className="relative grid grid-cols-1 items-start gap-12 lg:grid-cols-[1fr_2fr] lg:gap-20">
+          <div className="relative z-10 flex w-full flex-col">
+            <div className="card-surface relative flex min-h-[280px] flex-col justify-center rounded-3xl p-8 ring-1 ring-[rgba(82,102,235,0.18)] transition-all duration-300">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentIndex}
@@ -53,47 +81,44 @@ export function FeatureShowcase() {
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="w-12 h-12 rounded-2xl bg-[var(--accent)]/10 flex items-center justify-center mb-6">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-                    </svg>
+                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent)]/10 text-[var(--accent)]">
+                    {FEATURES_CONFIG[currentIndex].icon}
                   </div>
-                  <h3 className="text-2xl font-bold text-[var(--text-primary)] mb-3">
+                  <h3 className="mb-3 text-2xl font-bold text-[var(--text-primary)]">
                     {featuresData?.[FEATURES_CONFIG[currentIndex].id]?.title}
                   </h3>
-                  <p className="text-[var(--text-secondary)] leading-relaxed">
+                  <p className="leading-relaxed text-[var(--text-secondary)]">
                     {featuresData?.[FEATURES_CONFIG[currentIndex].id]?.description}
                   </p>
                 </motion.div>
               </AnimatePresence>
 
-              {/* Navigation Controls */}
               <div className="absolute -bottom-6 left-8 flex gap-3">
-                <button 
+                <button
                   onClick={prevFeature}
-                  className="w-12 h-12 flex items-center justify-center rounded-full bg-[var(--panel)] border border-[var(--border)] text-[var(--text-primary)] hover:bg-[var(--border-soft)] hover:scale-105 transition-all shadow-lg"
+                  className="card-surface flex h-12 w-12 items-center justify-center rounded-2xl text-[var(--text-primary)] transition-all hover:-translate-y-0.5 hover:bg-[var(--border-soft)]"
+                  aria-label="Previous feature"
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M15 18l-6-6 6-6" />
                   </svg>
                 </button>
-                <button 
+                <button
                   onClick={nextFeature}
-                  className="w-12 h-12 flex items-center justify-center rounded-full bg-[var(--accent)] text-white hover:bg-[var(--accent-hover)] hover:scale-105 transition-all shadow-lg shadow-[var(--accent)]/20"
+                  className="lightning-hover relative flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent)] text-white transition-all hover:-translate-y-0.5 hover:bg-[var(--accent-hover)] shadow-lg shadow-[0_16px_28px_-16px_rgba(82,102,235,0.75)]"
+                  aria-label="Next feature"
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M9 18l6-6-6-6" />
                   </svg>
                 </button>
               </div>
-
             </div>
-            
-            {/* Indicators */}
+
             <div className="mt-12 flex gap-2 pl-8">
               {FEATURES_CONFIG.map((_, idx) => (
-                <div 
-                  key={idx} 
+                <div
+                  key={idx}
                   className={`h-1.5 rounded-full transition-all duration-300 ${
                     idx === currentIndex ? "w-8 bg-[var(--accent)]" : "w-3 bg-[var(--border)]"
                   }`}
@@ -102,8 +127,7 @@ export function FeatureShowcase() {
             </div>
           </div>
 
-          {/* Right: Pinned/Dynamic Scene */}
-          <div className="w-full lg:w-2/3 relative aspect-video bg-[var(--surface)] rounded-3xl border border-[var(--border)] overflow-hidden flex items-center justify-center shadow-[var(--shadow-card)]">
+          <div className="card-surface relative aspect-video w-full overflow-hidden rounded-3xl">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
@@ -111,18 +135,19 @@ export function FeatureShowcase() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.05 }}
                 transition={{ duration: 0.4 }}
-                className="absolute inset-0 flex items-center justify-center p-8"
               >
-                {/* Placeholder for actual image/video/interactive element */}
-                <div className="w-full h-full rounded-xl border border-[var(--border)] border-dashed flex items-center justify-center bg-[var(--panel)]/50">
-                  <span className="text-[var(--text-muted)] font-medium tracking-widest uppercase">
-                    Visual: {FEATURES_CONFIG[currentIndex].id}
-                  </span>
+                <div className="absolute inset-0">
+                  <Image
+                    src={FEATURES_CONFIG[currentIndex].image}
+                    alt={featuresData?.[FEATURES_CONFIG[currentIndex].id]?.title || ""}
+                    fill
+                    className="object-contain p-6 md:p-8"
+                    priority={currentIndex === 0}
+                  />
                 </div>
               </motion.div>
             </AnimatePresence>
           </div>
-
         </div>
       </div>
     </section>

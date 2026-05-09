@@ -4,10 +4,15 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "../contexts/I18nProvider";
 
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const { t } = useTranslation();
-  const faqData = t("faq.data") || [];
+  const faqData = t<FaqItem[]>("faq.data");
 
   return (
     <section id="faq" className="relative w-full bg-[var(--background)] py-24 md:py-32 border-t border-[var(--border)]">
@@ -22,22 +27,17 @@ export function FAQ() {
           </p>
         </div>
 
-        <div className="space-y-4">
-          {faqData.map((faq: any, i: number) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              viewport={{ once: true }}
-              className="card-surface rounded-2xl overflow-hidden"
-            >
+        <div className="card-surface overflow-hidden rounded-3xl">
+          {faqData.map((faq, i: number) => (
+            <div key={i} className={i === 0 ? "" : "border-t border-[var(--border)]"}>
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full p-6 text-left flex items-center justify-between hover:bg-[var(--border-soft)] transition-colors"
+                className="flex w-full items-center justify-between p-6 text-left transition-colors hover:bg-[var(--border-soft)]"
               >
                 <span className="text-lg font-semibold text-[var(--text-primary)]">{faq.question}</span>
-                <span className={`text-[var(--accent)] transition-transform duration-300 ${openIndex === i ? "rotate-180" : ""}`}>
+                <span
+                  className={`text-[var(--accent)] transition-transform duration-300 ${openIndex === i ? "rotate-180" : ""}`}
+                >
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M6 9l6 6 6-6" />
                   </svg>
@@ -58,7 +58,7 @@ export function FAQ() {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </motion.div>
+            </div>
           ))}
         </div>
 

@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useTranslation } from "../contexts/I18nProvider";
+import { MotionA, MotionDiv } from "./motion-compat";
 
 export function FinalCTA() {
   const { t } = useTranslation();
@@ -13,7 +13,7 @@ export function FinalCTA() {
           {/* Subtle Accent Glow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[var(--accent)]/10 blur-[100px] pointer-events-none" />
           
-          <motion.div
+          <MotionDiv
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -28,14 +28,16 @@ export function FinalCTA() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-10">
-              <motion.a
+              <MotionA
                 href="https://github.com/BiViPi/xensnip/releases/latest"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="relative px-8 py-4 bg-[var(--accent)] text-white text-lg font-bold rounded-2xl transition-all shadow-2xl shadow-[var(--accent)]/40 flex items-center gap-3 overflow-hidden group"
+                className="lightning-hover relative flex items-center gap-3 overflow-hidden rounded-2xl bg-[var(--accent)] px-8 py-4 text-lg font-bold text-white transition-all shadow-2xl shadow-[var(--accent)]/40 group"
               >
-                {/* Lighting Effect */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                {/* Resting-state lighting */}
+                <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-tr from-white/0 via-white/5 to-white/10" />
+                {/* Hover lighting */}
+                <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-tr from-white/0 via-white/8 to-white/15 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 
                 {/* Bright Rim */}
                 <div className="absolute inset-0 border border-white/30 rounded-2xl pointer-events-none" />
@@ -46,9 +48,9 @@ export function FinalCTA() {
                   <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
                 <span className="relative z-10">{t("cta.download")}</span>
-              </motion.a>
+              </MotionA>
               
-              <motion.a
+              <MotionA
                 href="https://github.com/BiViPi/xensnip"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -59,7 +61,7 @@ export function FinalCTA() {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
-              </motion.a>
+              </MotionA>
             </div>
             
             <div className="mt-16 pt-12 border-t border-[var(--border)]">
@@ -67,7 +69,7 @@ export function FinalCTA() {
                 {t("cta.tags")}
               </p>
             </div>
-          </motion.div>
+          </MotionDiv>
         </div>
       </div>
     </section>
