@@ -1,0 +1,153 @@
+{
+  "nav": {
+    "workflow": "Workflow",
+    "features": "Features",
+    "faq": "FAQ",
+    "download": "Download"
+  },
+  "hero": {
+    "welcome": "Welcome to XenSnip.",
+    "subtitle": "You're in the right place to take better screenshots.",
+    "scroll": "Scroll",
+    "beats": {
+      "why": {
+        "label": "The Extremes",
+        "title": "Windows users shouldn't have to choose between beauty and friction.",
+        "bullets": [
+          "Beautiful screenshot apps are often locked behind freemium pricing.",
+          "Free power-user tools are visually dated with a steep learning curve.",
+          "Basic tools are easy to use, but lack the polish for professional communication."
+        ]
+      },
+      "gap": {
+        "label": "The Gap",
+        "title": "You want polished screenshots, not a 30-minute tutorial.",
+        "bullets": [
+          "New users are pushed away by tools that expose too many options too early.",
+          "Exporting a clean, redacted image shouldn't require a patchwork of apps.",
+          "Your screenshots should look intentional and ready to share, instantly."
+        ]
+      },
+      "answer": {
+        "label": "The Sweet Spot",
+        "title": "XenSnip brings premium visual quality to Windows, for free.",
+        "bullets": [
+          "A beautiful, modern interface that is instantly familiar to new users.",
+          "No paywalls, no watermarks. 100% free and local-first.",
+          "The perfect balance between editing power and approachability."
+        ]
+      },
+      "evidence": {
+        "label": "One Workflow",
+        "title": "Capture, annotate, beautify, and export without leaving the app.",
+        "bullets": [
+          "Add padding, styling, and beautiful backgrounds in one click.",
+          "Blur, pixelate, and redact sensitive information seamlessly.",
+          "Extract text with local OCR and copy directly to your clipboard."
+        ]
+      },
+      "result": {
+        "label": "The Result",
+        "title": "Your screenshots, finally looking as professional as your work.",
+        "bullets": [
+          "Stop fighting with complicated, cluttered interfaces.",
+          "Stop paying subscriptions for basic screenshot beautification.",
+          "Just capture, polish, and share."
+        ]
+      }
+    }
+  },
+  "showcase": {
+    "title": "Powerful features, quietly hidden.",
+    "subtitle": "Everything you need for professional screenshots, wrapped in a distraction-free interface.",
+    "features": {
+      "capture": {
+        "title": "Pixel-Perfect Capture",
+        "description": "Grab exactly what you need with precision crosshairs and smart window detection."
+      },
+      "annotate": {
+        "title": "Professional Annotation",
+        "description": "Add beautiful, semantic arrows, text, and shapes without cluttered toolbars."
+      },
+      "redact": {
+        "title": "Secure Redaction",
+        "description": "Safely blur or pixelate sensitive information with a single click."
+      }
+    }
+  },
+  "comparison": {
+    "title": "A more thoughtful approach.",
+    "subtitle": "We built XenSnip to solve the friction found in traditional screenshot tools.",
+    "headers": {
+      "feature": "Feature",
+      "generic": "Generic Tools",
+      "xensnip": "XenSnip"
+    },
+    "data": [
+      { "feature": "Pricing Model", "others": "Subscriptions or Paywalls", "xensnip": "100% Free Forever" },
+      { "feature": "User Interface", "others": "Cluttered & Dated", "xensnip": "Quiet Luxury Minimalist" },
+      { "feature": "Annotation", "others": "Complex Toolbars", "xensnip": "Context-Aware & Fluid" },
+      { "feature": "Data Privacy", "others": "Cloud-First / Tracked", "xensnip": "Local-First / Private" },
+      { "feature": "Export Polish", "others": "Requires Extra Apps", "xensnip": "One-Click Professionalism" }
+    ]
+  },
+  "tech": {
+    "title": "Built with modern technology.",
+    "sysReq": "System Requirements",
+    "cards": [
+      { "name": "Tauri 2.0 & Rust", "desc": "Native Windows performance with Rust-powered image processing." },
+      { "name": "React 19", "desc": "A highly responsive and modern web-based interface." },
+      { "name": "Konva.js", "desc": "High-performance 2D canvas for fluid annotations." },
+      { "name": "Local OCR", "desc": "On-device text extraction with zero cloud dependencies." }
+    ],
+    "stats": [
+      { "label": "Storage", "value": "~15 MB" },
+      { "label": "RAM Usage", "value": "~80 MB" },
+      { "label": "Startup Time", "value": "<1s" },
+      { "label": "Windows Only", "value": "Native" }
+    ]
+  },
+  "faq": {
+    "title": "Common Questions",
+    "subtitle": "Everything you need to know about XenSnip.",
+    "data": [
+      {
+        "question": "Why not use ShareX or Lightshot?",
+        "answer": "ShareX is powerful but has a steep learning curve. Lightshot is fast but lacks modern polishing tools. XenSnip finds the sweet spot: beautiful, fast, and modern without the complexity."
+      },
+      {
+        "question": "Does XenSnip support Windows only?",
+        "answer": "Yes, XenSnip is built specifically for Windows to ensure deep integration with native capture APIs and a seamless desktop experience."
+      },
+      {
+        "question": "Is XenSnip free?",
+        "answer": "Absolutely. XenSnip is 100% free with no watermarks, no paywalls, and no subscriptions."
+      },
+      {
+        "question": "Is XenSnip local-first?",
+        "answer": "Yes. Your screenshots and data stay on your device. We don't upload your captures to any cloud server."
+      },
+      {
+        "question": "What does OCR support include?",
+        "answer": "The current release includes local OCR for selected regions, allowing you to extract text from screenshots instantly without an internet connection."
+      },
+      {
+        "question": "What does the installer include?",
+        "answer": "The lightweight installer includes the core XenSnip utility and all necessary libraries for local image processing and OCR."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Ready to take better screenshots?",
+    "subtitle": "Download XenSnip today and start communicating with polished, professional visuals.",
+    "download": "Download for Windows",
+    "github": "View on GitHub",
+    "tags": "Free · Local-first · Professional Output"
+  },
+  "footer": {
+    "description": "Built for the Windows community.",
+    "tagline": "Quietly Powerful",
+    "license": "MIT License",
+    "privacy": "Privacy Policy"
+  }
+}

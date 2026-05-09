@@ -1,0 +1,153 @@
+{
+  "nav": {
+    "workflow": "Quy trình",
+    "features": "Tính năng",
+    "faq": "Hỏi đáp",
+    "download": "Tải xuống"
+  },
+  "hero": {
+    "welcome": "Chào mừng đến với XenSnip.",
+    "subtitle": "Chụp màn hình xấu? Xin lỗi, chúng tôi không hỗ trợ tính năng đó.",
+    "scroll": "Cuộn xuống",
+    "beats": {
+      "why": {
+        "label": "Hai thái cực",
+        "title": "Dùng Windows không có nghĩa là phải chịu đựng giao diện \"thời đồ đá\".",
+        "bullets": [
+          "App đẹp thì... bắt trả tiền thuê bao hàng tháng (chê!).",
+          "App miễn phí thì tính năng nhiều nhưng nhìn như Windows XP.",
+          "App mặc định thì dễ xài đấy, nhưng sửa ảnh xong nhìn hơi \"phèn\"."
+        ]
+      },
+      "gap": {
+        "label": "Sự mệt mỏi",
+        "title": "Bạn chỉ muốn chụp cái ảnh đẹp, chứ không phải đi học một khoá Photoshop.",
+        "bullets": [
+          "Vừa mở app lên đã ngợp vì một đống nút bấm chả biết để làm gì.",
+          "Che số tài khoản mà phải tải thêm 2 app khác, quá cồng kềnh.",
+          "Gửi báo cáo cho sếp mà ảnh chụp màn hình lem nhem thì trừ điểm thanh lịch ngay."
+        ]
+      },
+      "answer": {
+        "label": "Điểm chạm hoàn hảo",
+        "title": "XenSnip mang sự sang chảnh lên Windows. Và đặc biệt: Miễn phí.",
+        "bullets": [
+          "Giao diện hiện đại, tối giản. Xài một phát là ghiền luôn.",
+          "Không chèn logo, không trả phí. Hàng Việt chất lượng cao.",
+          "Cân bằng hoàn hảo giữa sức mạnh và sự thanh lịch."
+        ]
+      },
+      "evidence": {
+        "label": "Luồng làm việc",
+        "title": "Chụp, vẽ bậy, làm đẹp và copy - Tất cả trong một nhịp.",
+        "bullets": [
+          "Thêm padding, đổ bóng viền các kiểu chỉ với 1 click.",
+          "Bôi mờ, che thông tin mật mượt mà gọn gàng.",
+          "Quét chữ trên ảnh (OCR) mà không cần mạng. Phép thuật là đây!"
+        ]
+      },
+      "result": {
+        "label": "Kết quả",
+        "title": "Ảnh chụp màn hình cuối cùng cũng nhìn chuyên nghiệp như trình độ của bạn.",
+        "bullets": [
+          "Hết cảnh loay hoay với cái thanh công cụ rắc rối.",
+          "Dẹp luôn mấy gói cước đắt đỏ chỉ để kẻ mũi tên.",
+          "Cứ việc chụp, làm đẹp và gửi. Việc còn lại để XenSnip lo."
+        ]
+      }
+    }
+  },
+  "showcase": {
+    "title": "Sức mạnh ẩn mình trong tĩnh lặng.",
+    "subtitle": "Mọi thứ bạn cần cho một bức ảnh chuyên nghiệp, gói gọn trong giao diện không hề \"ra dẻ\".",
+    "features": {
+      "capture": {
+        "title": "Chụp chuẩn từng Pixel",
+        "description": "Tóm gọn chính xác những gì bạn muốn. AI tự dò cửa sổ thông minh như có mắt thần."
+      },
+      "annotate": {
+        "title": "Vẽ bậy nhưng rất Pro",
+        "description": "Kẻ mũi tên, đóng khung, viết chữ mượt mà. Không có mấy cái thanh công cụ rườm rà đâu."
+      },
+      "redact": {
+        "title": "Che giấu danh tính",
+        "description": "Bảo mật thông tin \"nhạy cảm\" bằng cách làm mờ hoặc pixelate. 1 click là bay màu."
+      }
+    }
+  },
+  "comparison": {
+    "title": "Khác biệt ở sự tinh tế.",
+    "subtitle": "XenSnip sinh ra là để dẹp đi sự bực mình khi dùng mấy app chụp màn hình \"truyền thống\".",
+    "headers": {
+      "feature": "Tính năng",
+      "generic": "App bình thường",
+      "xensnip": "XenSnip"
+    },
+    "data": [
+      { "feature": "Giá rổ", "others": "Cắt cổ / Gói thuê bao", "xensnip": "Miễn phí 100% trọn đời" },
+      { "feature": "Giao diện", "others": "Rối nùi & Cổ lỗ sĩ", "xensnip": "Tối giản & \"Sang ngầm\"" },
+      { "feature": "Vẽ vời", "others": "Thanh công cụ chán ngắt", "xensnip": "Mượt mà & Thông minh" },
+      { "feature": "Bảo mật", "others": "Tải lên mây (Cloud)", "xensnip": "Cục bộ (Không cần mạng)" },
+      { "feature": "Làm đẹp", "others": "Phải dùng thêm Photoshop", "xensnip": "Lung linh với 1 cú click" }
+    ]
+  },
+  "tech": {
+    "title": "Công nghệ xịn xò dưới nắp capo.",
+    "sysReq": "Yêu cầu hệ thống",
+    "cards": [
+      { "name": "Tauri 2.0 & Rust", "desc": "Nhanh như điện nhờ sức mạnh của Rust, chạy native trên Windows." },
+      { "name": "React 19", "desc": "Giao diện mượt mà, phản hồi tức thì." },
+      { "name": "Konva.js", "desc": "Canvas siêu tốc để bạn vẽ bậy không trễ nhịp nào." },
+      { "name": "OCR Offline", "desc": "Quét chữ trong ảnh ngay trên máy, rớt mạng vẫn chạy tốt." }
+    ],
+    "stats": [
+      { "label": "Dung lượng", "value": "~15 MB" },
+      { "label": "Ngốn RAM", "value": "~80 MB" },
+      { "label": "Thời gian mở", "value": "<1s" },
+      { "label": "Tương thích", "value": "Windows" }
+    ]
+  },
+  "faq": {
+    "title": "Chuyên mục giải ngố",
+    "subtitle": "Những câu hỏi mà ai cũng hỏi về XenSnip.",
+    "data": [
+      {
+        "question": "Ủa sao không xài ShareX hay Lightshot luôn cho lẹ?",
+        "answer": "ShareX xịn nhưng setup đau đầu. Lightshot thì nhanh nhưng làm gì có trò đổ bóng hay padding. XenSnip là con lai hoàn hảo: Nhanh, đẹp, mà lại dễ xài. Đỉnh chưa?"
+      },
+      {
+        "question": "XenSnip chỉ chạy trên Windows thôi hả?",
+        "answer": "Đúng rồi bạn ơi. XenSnip được \"đo ni đóng giày\" cho Windows để lấy được API màn hình tận gốc, cho nên mượt lắm."
+      },
+      {
+        "question": "Thật sự là miễn phí à? Có lừa đảo không đấy?",
+        "answer": "Uy tín 100%! Không chèn logo, không thu phí, không bắt đăng ký. Bạn cứ yên tâm mà xài."
+      },
+      {
+        "question": "Dữ liệu có bị đem bán không?",
+        "answer": "Không hề. Ảnh của bạn thì ở trên máy của bạn. Chúng tôi không tải ảnh lên mây hay lén nhìn trộm đâu nha."
+      },
+      {
+        "question": "Tính năng quét chữ (OCR) có cần mạng không?",
+        "answer": "Hoàn toàn offline. Bạn quét văn bản ngon ơ ngay cả khi cục router nhà bạn vừa bốc khói."
+      },
+      {
+        "question": "Cài vô có nặng máy không?",
+        "answer": "Nhẹ tựa lông hồng. Bản cài đặt siêu nhỏ đã bao gồm đầy đủ engine xử lý ảnh và OCR rồi."
+      }
+    ]
+  },
+  "cta": {
+    "title": "Đã sẵn sàng nâng cấp ảnh chụp màn hình chưa?",
+    "subtitle": "Tải XenSnip ngay để mấy tấm ảnh feedback gửi sếp không còn mang dáng vẻ \"sơ sài\" nữa.",
+    "download": "Tải luôn cho Windows",
+    "github": "Soi code trên GitHub",
+    "tags": "Miễn phí · Cục bộ · Chuẩn chuyên nghiệp"
+  },
+  "footer": {
+    "description": "Làm ra với nhiều tình yêu dành cho anh em dùng Windows.",
+    "tagline": "Sức mạnh thầm lặng",
+    "license": "Giấy phép MIT",
+    "privacy": "Chính sách bảo mật"
+  }
+}
