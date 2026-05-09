@@ -7,7 +7,7 @@ export function FinalCTA() {
   const { t } = useTranslation();
 
   return (
-    <section className="relative w-full py-32 md:py-48 overflow-hidden bg-[var(--background)]">
+    <section className="relative w-full py-32 md:py-48 overflow-hidden bg-[var(--background)] border-t border-[var(--border)]">
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         <div className="card-surface rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden">
           {/* Subtle Accent Glow */}
@@ -20,43 +20,50 @@ export function FinalCTA() {
             viewport={{ once: true }}
             className="relative z-10"
           >
-            <h2 className="text-4xl md:text-7xl font-bold text-[var(--text-primary)] mb-8 tracking-tighter leading-tight">
+            <h2 className="text-3xl md:text-5xl font-bold text-[var(--text-primary)] mb-6 tracking-tight leading-[1.1]">
               {t("cta.title")}
             </h2>
-            <p className="text-xl md:text-2xl text-[var(--text-secondary)] mb-16 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-[var(--text-secondary)] mb-12 max-w-xl mx-auto leading-relaxed">
               {t("cta.subtitle")}
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-10">
               <motion.a
                 href="https://github.com/BiViPi/xensnip/releases/latest"
-                whileHover={{ scale: 1.02, y: -4 }}
+                whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="px-12 py-6 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white text-xl font-bold rounded-2xl transition-all shadow-2xl shadow-[var(--accent)]/40 flex items-center gap-3"
+                className="relative px-8 py-4 bg-[var(--accent)] text-white text-lg font-bold rounded-2xl transition-all shadow-2xl shadow-[var(--accent)]/40 flex items-center gap-3 overflow-hidden group"
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                {/* Lighting Effect */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                
+                {/* Bright Rim */}
+                <div className="absolute inset-0 border border-white/30 rounded-2xl pointer-events-none" />
+                
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="relative z-10">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                   <polyline points="7 10 12 15 17 10" />
                   <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
-                {t("cta.download")}
+                <span className="relative z-10">{t("cta.download")}</span>
               </motion.a>
+              
               <motion.a
                 href="https://github.com/BiViPi/xensnip"
                 target="_blank"
                 rel="noopener noreferrer"
-                whileHover={{ x: 5 }}
-                className="text-[var(--text-primary)] hover:text-[var(--accent)] text-lg font-bold flex items-center gap-2 transition-colors"
+                whileHover={{ x: 3 }}
+                className="text-[var(--text-primary)] hover:text-[var(--accent)] text-lg font-bold flex items-center gap-2 transition-all"
               >
                 {t("cta.github")}
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </motion.a>
             </div>
             
-            <div className="mt-16 pt-16 border-t border-[var(--border)]">
-              <p className="text-sm text-[var(--text-muted)] uppercase tracking-[0.4em] font-bold">
+            <div className="mt-16 pt-12 border-t border-[var(--border)]">
+              <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-[0.5em] font-black opacity-60">
                 {t("cta.tags")}
               </p>
             </div>
