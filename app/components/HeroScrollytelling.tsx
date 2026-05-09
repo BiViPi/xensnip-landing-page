@@ -32,60 +32,60 @@ interface BeatDef {
 const BEATS: BeatDef[] = [
   {
     id: "why",
-    label: "Why",
-    title: "A screenshot is meant to help something land.",
+    label: "The Extremes",
+    title: "Windows users shouldn't have to choose between beauty and friction.",
     bullets: [
-      "Screenshots are communication artifacts — someone else has to understand them.",
-      "The goal is not just capture. The goal is clarity.",
-      "Most screenshots fail before they leave the folder."
+      "Beautiful screenshot apps are often locked behind freemium pricing.",
+      "Free power-user tools are visually dated with a steep learning curve.",
+      "Basic tools are easy to use, but lack the polish for professional communication."
     ],
-    visual: "after",
+    visual: "before",
     scrollRange: [0.15, 0.30]
   },
   {
     id: "gap",
-    label: "The gap",
-    title: "Capturing is easy. Making it clear enough to share is where it breaks.",
+    label: "The Gap",
+    title: "You want polished screenshots, not a 30-minute tutorial.",
     bullets: [
-      "Raw screenshots carry noise: irrelevant UI, personal info, no context.",
-      "Annotation tools are scattered across different apps.",
-      "Every export step is a friction point."
+      "New users are pushed away by tools that expose too many options too early.",
+      "Exporting a clean, redacted image shouldn't require a patchwork of apps.",
+      "Your screenshots should look intentional and ready to share, instantly."
     ],
     visual: "before",
     scrollRange: [0.30, 0.45]
   },
   {
     id: "answer",
-    label: "The answer",
-    title: "XenSnip is one Windows workflow, not a patchwork of tools.",
+    label: "The Sweet Spot",
+    title: "XenSnip brings premium visual quality to Windows, for free.",
     bullets: [
-      "Capture, polish, annotate, and export in one place.",
-      "Local-first. No upload, no account, no cloud dependency.",
-      "Built specifically for Windows."
+      "A beautiful, modern interface that is instantly familiar to new users.",
+      "No paywalls, no watermarks. 100% free and local-first.",
+      "The perfect balance between editing power and approachability."
     ],
     visual: "after",
     scrollRange: [0.45, 0.60]
   },
   {
     id: "evidence",
-    label: "The evidence",
-    title: "Every part of the interface is there for a reason.",
+    label: "One Workflow",
+    title: "Capture, annotate, beautify, and export without leaving the app.",
     bullets: [
-      "Bottom toolbar: style, ratio, beautify, copy, export.",
-      "Right sidebar: annotate, redact, protect what matters.",
-      "Left sidebar: sessions, presets, continuity across captures."
+      "Add padding, styling, and beautiful backgrounds in one click.",
+      "Blur, pixelate, and redact sensitive information seamlessly.",
+      "Extract text with local OCR and copy directly to your clipboard."
     ],
     visual: "proof",
     scrollRange: [0.60, 0.85]
   },
   {
     id: "result",
-    label: "The result",
-    title: "One local workflow for screenshots that need to be understood.",
+    label: "The Result",
+    title: "Your screenshots, finally looking as professional as your work.",
     bullets: [
-      "No more fragmented tools.",
-      "No more screenshot cleanup after the fact.",
-      "Just capture, polish, share."
+      "Stop fighting with complicated, cluttered interfaces.",
+      "Stop paying subscriptions for basic screenshot beautification.",
+      "Just capture, polish, and share."
     ],
     visual: "after",
     scrollRange: [0.85, 1.00]
@@ -113,7 +113,7 @@ function Typewriter({ text, start }: { text: string; start: boolean }) {
   }, [start, text]);
 
   return (
-    <p className="mt-8 text-center text-lg md:text-xl text-slate-400 font-medium">
+    <p className="mt-8 text-center text-lg md:text-xl text-[#c3c3cc] font-medium">
       {visibleText}
       <span className="animate-pulse">|</span>
     </p>
@@ -134,13 +134,13 @@ function IntroScreen({ progress }: { progress: MotionValue<number> }) {
   return (
     <motion.div 
       style={{ opacity, scale, y, pointerEvents: opacity.get() > 0 ? "auto" : "none" }}
-      className="absolute inset-0 flex flex-col items-center justify-center bg-slate-950 z-50 px-6"
+      className="absolute inset-0 flex flex-col items-center justify-center bg-[#101117] z-50 px-6"
     >
       <motion.h1 
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-slate-50 text-center"
+        className="text-5xl md:text-7xl lg:text-8xl font-bold text-[#ededf3] text-center"
       >
         Welcome to XenSnip.
       </motion.h1>
@@ -177,10 +177,10 @@ function SplitTextSide({ progress }: { progress: MotionValue<number> }) {
             style={{ opacity, y, pointerEvents: opacity.get() > 0.5 ? "auto" : "none" }}
             className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex flex-col"
           >
-            <span className="text-sm font-bold tracking-widest text-emerald-400 uppercase mb-4">
+            <span className="text-sm font-bold text-[#5266eb] uppercase mb-4">
               {beat.label}
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-50 leading-tight mb-8 max-w-[20ch]">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#ededf3] leading-tight mb-8 max-w-[20ch]">
               {beat.title}
             </h2>
             <ul className="space-y-4">
@@ -198,9 +198,9 @@ function SplitTextSide({ progress }: { progress: MotionValue<number> }) {
                   <motion.li 
                     key={i}
                     style={{ opacity: bOpacity, x: bX }}
-                    className="flex items-start text-slate-300 text-lg"
+                    className="flex items-start text-[#c3c3cc] text-lg"
                   >
-                    <span className="mr-3 mt-2 h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
+                    <span className="mr-3 mt-2 h-2 w-2 rounded-full bg-[#5266eb] shrink-0" />
                     <span>{bullet}</span>
                   </motion.li>
                 );
@@ -214,7 +214,7 @@ function SplitTextSide({ progress }: { progress: MotionValue<number> }) {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: false }}
               >
-                <a href="#" className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-slate-950 bg-emerald-400 hover:bg-emerald-300 rounded-full transition-colors">
+                <a href="#" className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-[#ededf3] bg-[#5266eb] hover:bg-[#6577ff] rounded-full transition-colors">
                   Download for Windows
                 </a>
               </motion.div>
@@ -226,21 +226,7 @@ function SplitTextSide({ progress }: { progress: MotionValue<number> }) {
   );
 }
 
-function Callout({ label, body, progress, start, end, className }: { label: string, body: string, progress: MotionValue<number>, start: number, end: number, className: string }) {
-  const range = createRange(start, start + 0.03, end - 0.03, end);
-  const opacity = useTransform(progress, range, [0, 1, 1, 0]);
-  const scale = useTransform(progress, range, [0.9, 1, 1, 0.9]);
-  
-  return (
-    <motion.div 
-      style={{ opacity, scale }}
-      className={`absolute z-20 backdrop-blur-xl bg-slate-900/80 border border-slate-700/50 shadow-2xl rounded-xl p-4 w-64 ${className}`}
-    >
-      <h4 className="text-slate-50 font-semibold text-sm mb-1">{label}</h4>
-      <p className="text-slate-400 text-xs leading-relaxed">{body}</p>
-    </motion.div>
-  );
-}
+
 
 function SplitVisualSide({ progress }: { progress: MotionValue<number> }) {
   return (
@@ -264,7 +250,7 @@ function SplitVisualSide({ progress }: { progress: MotionValue<number> }) {
             style={{ opacity, scale }}
             className="absolute inset-0 flex items-center justify-center w-full"
           >
-            <div className="relative w-full rounded-2xl overflow-hidden border border-slate-800 shadow-[0_0_100px_-20px_rgba(0,0,0,0.5)]">
+            <div className="relative w-full rounded-2xl overflow-hidden border border-[#393947] shadow-[0_28px_90px_rgba(0,0,0,0.42)]">
               <Image
                 src={imgSrc}
                 alt={beat.label}
@@ -274,30 +260,7 @@ function SplitVisualSide({ progress }: { progress: MotionValue<number> }) {
                 priority
               />
               
-              {/* Overlay Callouts specifically for the Proof beat */}
-              {beat.visual === "proof" && (
-                <>
-                  <div className="absolute inset-0 bg-slate-950/20 backdrop-blur-[2px]" />
-                  <Callout 
-                    progress={progress} start={0.65} end={0.85}
-                    label="Style and export in one pass" 
-                    body="Shape, polish, copy, and export stay in the same editing moment."
-                    className="bottom-6 left-1/2 -translate-x-1/2"
-                  />
-                  <Callout 
-                    progress={progress} start={0.70} end={0.85}
-                    label="Annotate and protect what matters" 
-                    body="Explanation and privacy controls show up where clarity needs them."
-                    className="top-1/4 right-6"
-                  />
-                  <Callout 
-                    progress={progress} start={0.75} end={0.85}
-                    label="Keep the session in view" 
-                    body="Presets and continuity stay close without crowding the main canvas."
-                    className="top-1/3 left-6"
-                  />
-                </>
-              )}
+
             </div>
           </motion.div>
         );
@@ -323,7 +286,7 @@ export function HeroScrollytelling() {
   });
 
   return (
-    <div ref={containerRef} className="relative h-[600vh] bg-slate-950">
+    <div ref={containerRef} className="relative h-[600vh] bg-[#101117]">
       {/* The Sticky Viewport Container */}
       <div className="sticky top-0 h-[100dvh] w-full overflow-hidden flex items-center justify-center">
         
@@ -352,10 +315,10 @@ export function HeroScrollytelling() {
             opacity: useTransform(smoothProgress, [0, 0.05, 0.95, 1], [0.5, 0, 0, 0]) 
           }}
         >
-          <span className="text-xs font-semibold tracking-[0.2em] uppercase text-slate-500 mb-4">Scroll</span>
-          <div className="w-[1px] h-12 bg-slate-800 overflow-hidden relative">
+          <span className="text-xs font-semibold uppercase text-[#8c8c99] mb-4">Scroll</span>
+          <div className="w-[1px] h-12 bg-[#393947] overflow-hidden relative">
             <motion.div 
-              className="absolute top-0 left-0 w-full h-1/2 bg-slate-400"
+              className="absolute top-0 left-0 w-full h-1/2 bg-[#5266eb]"
               animate={{ y: ["-100%", "200%"] }}
               transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
             />
