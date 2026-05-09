@@ -4,7 +4,7 @@ import { useTranslation } from "../contexts/I18nProvider";
 import { MotionA, MotionDiv } from "./motion-compat";
 
 export function FinalCTA() {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
 
   return (
     <section className="relative w-full py-32 md:py-48 overflow-hidden bg-[var(--background)] border-t border-[var(--border)]">
@@ -65,7 +65,13 @@ export function FinalCTA() {
             </div>
             
             <div className="mt-16 pt-12 border-t border-[var(--border)]">
-              <p className="text-[10px] text-[var(--text-muted)] uppercase tracking-[0.5em] font-black opacity-60">
+              <p
+                className={`text-[var(--text-muted)] opacity-60 ${
+                  locale === "en"
+                    ? "text-[10px] uppercase tracking-[0.5em] font-black"
+                    : "text-[11px] font-semibold"
+                }`}
+              >
                 {t("cta.tags")}
               </p>
             </div>

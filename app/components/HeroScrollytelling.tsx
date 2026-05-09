@@ -96,7 +96,7 @@ function IntroScreen({ progress }: { progress: MotionValue<number> }) {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="text-center text-5xl font-bold tracking-[-0.03em] text-[var(--text-primary)] md:text-7xl lg:text-8xl"
+        className="text-center text-5xl font-bold tracking-tighter text-[var(--text-primary)] md:text-7xl lg:text-8xl"
       >
         {t("hero.welcome")}
       </MotionH1>

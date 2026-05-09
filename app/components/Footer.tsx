@@ -4,10 +4,10 @@ import { useTranslation } from "../contexts/I18nProvider";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
 
   return (
-    <footer className="w-full bg-[var(--background)] py-12 border-t border-[var(--border)]">
+    <footer className="w-full border-t border-[var(--border)] bg-[var(--surface)] py-12 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_-8px_24px_-8px_rgba(0,0,0,0.12)]">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="flex flex-col md:flex-row items-center justify-between gap-12">
           
@@ -47,7 +47,13 @@ export function Footer() {
                 {t("footer.license")}
               </a>
             </div>
-            <div className="text-[var(--accent)] text-[10px] uppercase tracking-[0.4em] font-black opacity-40">
+            <div
+              className={`text-[var(--accent)] opacity-40 ${
+                locale === "en"
+                  ? "text-[10px] uppercase tracking-[0.4em] font-black"
+                  : "text-xs font-semibold"
+              }`}
+            >
               {t("footer.tagline")}
             </div>
           </div>

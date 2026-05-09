@@ -24,9 +24,9 @@ export function Nav() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-0 inset-x-0 z-[100] transition-all duration-300 ${
+      className={`fixed top-0 inset-x-0 z-[100] transition-all duration-500 ${
         hasScrolled 
-          ? "py-4 bg-[var(--surface)]/70 backdrop-blur-[18px] border-b border-[var(--border)]" 
+          ? "py-4 bg-[var(--surface)]/75 backdrop-blur-[20px] border-b border-[var(--border)] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.25),inset_0_-1px_0_rgba(255,255,255,0.06)]"
           : "py-8 bg-transparent"
       }`}
     >
