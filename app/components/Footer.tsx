@@ -14,12 +14,12 @@ export function Footer() {
           {/* Brand & Copyright */}
           <div className="flex flex-col items-center md:items-start gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-xl bg-[var(--accent)] flex items-center justify-center shadow-lg shadow-[var(--accent)]/20">
-                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                   <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
-                   <circle cx="12" cy="13" r="3" />
-                 </svg>
-              </div>
+              <img
+                src="/logo.svg"
+                alt="XenSnip logo"
+                width={26}
+                height={26}
+              />
               <span className="text-[var(--text-primary)] text-xl font-bold tracking-tight">XenSnip</span>
             </div>
             <p className="text-[var(--text-muted)] text-sm font-medium">

@@ -33,12 +33,13 @@ export function Nav() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-[var(--accent)] flex items-center justify-center shadow-lg shadow-[var(--accent)]/20 group-hover:scale-110 transition-transform">
-             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-               <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z" />
-               <circle cx="12" cy="13" r="3" />
-             </svg>
-          </div>
+          <img
+            src="/logo.svg"
+            alt="XenSnip logo"
+            width={28}
+            height={28}
+            className="group-hover:scale-110 transition-transform duration-200"
+          />
           <span className="text-xl font-bold text-[var(--text-primary)] tracking-tight">XenSnip</span>
         </Link>
 
