@@ -38,7 +38,7 @@ export function FAQ() {
                 <motion.span
                   animate={{ rotate: openIndex === i ? 180 : 0 }}
                   transition={{ type: "spring", stiffness: 200, damping: 25 }}
-                  className="text-[var(--accent)]"
+                  style={{ color: "var(--accent)", display: "inline-flex" }}
                 >
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M6 9l6 6 6-6" />
