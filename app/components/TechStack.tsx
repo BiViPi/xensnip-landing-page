@@ -58,7 +58,7 @@ export function TechStack() {
   const stats = t<TechStat[]>("tech.stats");
 
   return (
-    <section className="relative w-full bg-[var(--background)] py-32 md:py-48 overflow-hidden border-t border-[var(--border)]">
+    <section className="relative w-full bg-[var(--background)] py-32 md:py-48 overflow-hidden">
       <div className="max-w-6xl mx-auto px-8">
         
         {/* Header */}

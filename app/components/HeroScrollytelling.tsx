@@ -137,8 +137,8 @@ function getBeatImageSrc(beatId: string, visual: BeatVisual) {
 const BEATS_CONFIG: BeatDef[] = [
   { id: "why", visual: "before", scrollRange: [0.15, 0.30] },
   { id: "gap", visual: "before", scrollRange: [0.30, 0.45] },
-  { id: "answer", visual: "after", scrollRange: [0.45, 0.60] },
-  { id: "evidence", visual: "after", scrollRange: [0.60, 0.85] },
+  { id: "answer", visual: "before", scrollRange: [0.45, 0.60] },
+  { id: "evidence", visual: "before", scrollRange: [0.60, 0.85] },
   { id: "result", visual: "after", scrollRange: [0.85, 1.00] }
 ];
 

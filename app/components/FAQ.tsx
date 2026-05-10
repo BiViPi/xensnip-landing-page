@@ -15,7 +15,7 @@ export function FAQ() {
   const faqData = t<FaqItem[]>("faq.data");
 
   return (
-    <section id="faq" className="relative w-full bg-[var(--background)] py-24 md:py-32 border-t border-[var(--border)]">
+    <section id="faq" className="relative w-full bg-[var(--background)] py-24 md:py-32">
       <div className="max-w-3xl mx-auto px-6">
         
         <div className="text-center mb-16">

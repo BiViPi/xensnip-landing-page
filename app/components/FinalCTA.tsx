@@ -7,7 +7,7 @@ export function FinalCTA() {
   const { t, locale } = useTranslation();
 
   return (
-    <section className="relative w-full py-32 md:py-48 overflow-hidden bg-[var(--background)] border-t border-[var(--border)]">
+    <section className="relative w-full py-32 md:py-48 overflow-hidden bg-[var(--background)]">
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         <div className="card-surface rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden">
           {/* Subtle Accent Glow */}

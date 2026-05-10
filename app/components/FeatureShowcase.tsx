@@ -59,7 +59,10 @@ interface SupportContent {
 
 const heroToolbar = ["Arrow", "Text", "Shape", "Highlight", "Blur"];
 const tileClassName =
-  "card-surface relative overflow-hidden rounded-[28px] bg-[var(--surface-elevated)]";
+  "card-system-template relative overflow-hidden rounded-[28px]";
+
+const featureTileHoverShadow =
+  "0 18px 38px -20px rgba(0,0,0,0.22), 0 12px 28px -22px rgba(82,102,235,0.18), var(--bright-rim)";
 
 type CardId = "capture" | "annotate" | "focus" | "boundaries" | "redact";
 
@@ -148,8 +151,7 @@ export function FeatureShowcase() {
                 : {
                     scale: 1.015,
                     y: -4,
-                    boxShadow:
-                      "0 24px 48px -22px rgba(0,0,0,0.52), 0 10px 24px -14px rgba(82,102,235,0.24), inset 0 1px 0 rgba(255,255,255,0.12), inset 0 0 0 1px rgba(255,255,255,0.08)",
+                    boxShadow: featureTileHoverShadow,
                   }
             }
             transition={hoverTransition}
@@ -257,8 +259,7 @@ export function FeatureShowcase() {
                 : {
                     scale: 1.015,
                     y: -4,
-                    boxShadow:
-                      "0 22px 42px -22px rgba(0,0,0,0.5), 0 10px 22px -16px rgba(82,102,235,0.22), inset 0 1px 0 rgba(255,255,255,0.12), inset 0 0 0 1px rgba(255,255,255,0.08)",
+                    boxShadow: featureTileHoverShadow,
                   }
             }
             transition={hoverTransition}
@@ -342,8 +343,7 @@ export function FeatureShowcase() {
                 : {
                     scale: 1.015,
                     y: -4,
-                    boxShadow:
-                      "0 20px 38px -22px rgba(0,0,0,0.48), 0 10px 22px -16px rgba(82,102,235,0.18), inset 0 1px 0 rgba(255,255,255,0.12), inset 0 0 0 1px rgba(255,255,255,0.08)",
+                    boxShadow: featureTileHoverShadow,
                   }
             }
             transition={hoverTransition}
@@ -390,8 +390,7 @@ export function FeatureShowcase() {
                 : {
                     scale: 1.015,
                     y: -4,
-                    boxShadow:
-                      "0 22px 42px -22px rgba(0,0,0,0.5), 0 10px 22px -16px rgba(82,102,235,0.22), inset 0 1px 0 rgba(255,255,255,0.12), inset 0 0 0 1px rgba(255,255,255,0.08)",
+                    boxShadow: featureTileHoverShadow,
                   }
             }
             transition={hoverTransition}
@@ -502,8 +501,7 @@ export function FeatureShowcase() {
                 : {
                     scale: 1.015,
                     y: -4,
-                    boxShadow:
-                      "0 24px 44px -22px rgba(0,0,0,0.52), 0 10px 24px -16px rgba(82,102,235,0.24), inset 0 1px 0 rgba(255,255,255,0.12), inset 0 0 0 1px rgba(255,255,255,0.08)",
+                    boxShadow: featureTileHoverShadow,
                   }
             }
             transition={hoverTransition}

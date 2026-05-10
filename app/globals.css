@@ -62,6 +62,16 @@ body {
   box-shadow: var(--shadow-card), var(--bright-rim);
 }
 
+.card-system-template {
+  background: linear-gradient(
+    180deg,
+    var(--surface-elevated) 0%,
+    color-mix(in srgb, var(--surface-elevated) 92%, var(--accent) 8%) 100%
+  );
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card), var(--bright-rim);
+}
+
 .lightning-hover {
   position: relative;
   overflow: hidden;

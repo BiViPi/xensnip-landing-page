@@ -22,7 +22,7 @@ export function FriendlyComparison() {
   const data = t<ComparisonRow[]>("comparison.data");
 
   return (
-    <section className="relative w-full bg-[var(--background)] py-24 md:py-32 border-t border-[var(--border)]">
+    <section className="relative w-full bg-[var(--background)] py-24 md:py-32">
       <div className="max-w-4xl mx-auto px-6">
         
         <div className="mb-16 grid gap-6 md:grid-cols-[1.1fr_0.9fr] md:items-end">
@@ -34,7 +34,7 @@ export function FriendlyComparison() {
           </p>
         </div>
 
-        <div className="card-surface overflow-hidden rounded-3xl">
+        <div className="card-system-template relative overflow-hidden rounded-[2rem]">
           <div className="grid grid-cols-3 bg-[var(--panel)] border-b border-[var(--border)] p-6 text-sm font-bold uppercase tracking-wider text-[var(--text-muted)]">
             <div>{headers.feature || "Feature"}</div>
             <div className="text-center">{headers.generic || "Generic Tools"}</div>
