@@ -155,7 +155,7 @@ function SplitTextSide({ progress }: { progress: MotionValue<number> }) {
             : [start, start + 0.04, end - 0.04, end],
           beat.id === "why"
             ? [56, 0, 0, -150]
-            : ["-20%", "0%", "0%", "-20%"]
+            : [-36, 0, 0, -36]
         );
 
         return (

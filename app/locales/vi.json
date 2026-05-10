@@ -73,6 +73,20 @@
         "title": "Che giấu danh tính",
         "description": "Bảo mật thông tin \"nhạy cảm\" bằng cách làm mờ hoặc pixelate. 1 click là bay màu."
       }
+    },
+    "support": {
+      "precisionLabel": "Bề mặt chính xác",
+      "precisionHint": "Lệch 0px",
+      "focusLabel": "Workflow gọn gàng",
+      "focusTitle": "Rõ ràng ở trung tâm. Công cụ không cản nhịp làm việc.",
+      "focusDescription": "Mọi thao tác đều nhanh, gọn và chạy cục bộ, để flow chụp màn hình giữ được sự tập trung từ cú click đầu tiên tới lúc export.",
+      "focusPoints": ["UI gọn gàng", "Export sạch sẽ", "Review thật nhanh"],
+      "boundariesTitle": "Bắt biên thông minh",
+      "boundariesDescription": "Tự nhận viền cửa sổ, giữ tỷ lệ sạch sẽ và snap đúng vùng mà bạn thật sự muốn chụp.",
+      "detectionBadge": "Tự dò biên",
+      "privacyBadge": "Làm mờ thông minh",
+      "beforeLabel": "Trước",
+      "afterLabel": "Sau"
     }
   },
   "comparison": {

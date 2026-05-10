@@ -73,6 +73,20 @@
         "title": "Secure Redaction",
         "description": "Safely blur or pixelate sensitive information with a single click."
       }
+    },
+    "support": {
+      "precisionLabel": "Precision Surface",
+      "precisionHint": "0px offset",
+      "focusLabel": "Workflow Calm",
+      "focusTitle": "Clarity at the center. Tools that stay out of your way.",
+      "focusDescription": "Every action feels immediate, polished, and local-first, so the capture flow stays focused from first click to final export.",
+      "focusPoints": ["Quiet UI", "Clean Export", "Fast Review"],
+      "boundariesTitle": "Smart Boundaries",
+      "boundariesDescription": "Detect window edges, preserve clean proportions, and snap to the area you actually meant to capture.",
+      "detectionBadge": "Auto-Detect",
+      "privacyBadge": "Smart Blur",
+      "beforeLabel": "Before",
+      "afterLabel": "After"
     }
   },
   "comparison": {
