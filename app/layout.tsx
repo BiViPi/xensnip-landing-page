@@ -3,6 +3,7 @@ import { Be_Vietnam_Pro, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./contexts/ThemeProvider";
 import { I18nProvider } from "./contexts/I18nProvider";
+import { Analytics } from "@vercel/analytics/next";
 
 const beVietnamPro = Be_Vietnam_Pro({
   variable: "--font-sans",
@@ -39,6 +40,7 @@ export default function RootLayout({
             {children}
           </I18nProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
