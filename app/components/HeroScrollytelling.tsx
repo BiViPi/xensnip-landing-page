@@ -8,15 +8,6 @@ import { MotionDiv, MotionH1, MotionLi, MotionSection } from "./motion-compat";
 
 // ─── UTILS ───────────────────────────────────────────────────────────────────
 
-function createRange(start: number, end: number, fadeOutStart: number, endLimit: number) {
-  return [
-    Math.max(0, start),
-    Math.max(start + 0.001, end),
-    Math.max(end + 0.002, fadeOutStart),
-    Math.max(fadeOutStart + 0.001, endLimit)
-  ];
-}
-
 // ─── BEAT DATA ───────────────────────────────────────────────────────────────
 
 type BeatVisual = "after" | "before" | "proof";
@@ -255,26 +246,8 @@ function SplitVisualSide({ progress }: { progress: MotionValue<number> }) {
   const { t } = useTranslation();
   const beatsData = t<Record<string, BeatContent>>("hero.beats");
   
-  // Adaptive Background Glow Color
-  const glowColor = useTransform(
-    progress,
-    [0.15, 0.35, 0.55, 0.75, 0.95],
-    [
-      "rgba(82, 102, 235, 0.05)", 
-      "rgba(255, 100, 100, 0.05)", 
-      "rgba(82, 102, 235, 0.25)", 
-      "rgba(100, 210, 255, 0.20)", 
-      "rgba(82, 102, 235, 0.30)"
-    ]
-  );
-  
   return (
     <div className="relative h-full flex items-center justify-center w-full">
-      <MotionDiv 
-        style={{ backgroundColor: glowColor, filter: "blur(140px)" }}
-        className="absolute w-[80%] h-[60%] rounded-full opacity-60 mix-blend-screen pointer-events-none"
-      />
-
       {BEATS_CONFIG.map((beat) => {
         const beatContent = beatsData?.[beat.id];
         const [start, end] = beat.scrollRange;
@@ -287,8 +260,6 @@ function SplitVisualSide({ progress }: { progress: MotionValue<number> }) {
         // eslint-disable-next-line react-hooks/rules-of-hooks
         const y = useTransform(progress, [start, start + 0.02, end - 0.02, end], [60, 0, 0, -60]);
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        const shadowY = useTransform(progress, [start, start + 0.02, end - 0.02, end], [100, 0, 0, -100]);
-        // eslint-disable-next-line react-hooks/rules-of-hooks
         const x = beat.id === "why" ? useTransform(progress, [start, start + 0.08], ["100%", "0%"]) : 0;
 
         const imgSrc = getBeatImageSrc(beat.visual);
@@ -299,11 +270,7 @@ function SplitVisualSide({ progress }: { progress: MotionValue<number> }) {
             style={{ opacity, scale, x, y }}
             className="absolute inset-0 flex items-center justify-center w-full"
           >
-            <MotionDiv 
-              style={{ y: shadowY }}
-              className="absolute inset-8 bg-black/60 blur-3xl rounded-[2rem] -z-10 opacity-50"
-            />
-            <div className="card-surface relative w-full overflow-hidden rounded-2xl shadow-2xl">
+            <div className="card-surface relative w-full overflow-hidden rounded-2xl">
               <Image
                 src={imgSrc}
                 alt={beatContent?.label || ""}
