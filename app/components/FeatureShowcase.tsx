@@ -41,11 +41,11 @@ interface SupportContent {
   precisionHint: string;
   focusLabel: string;
   focusTitle: string;
-  focusDescription: string;
   focusPoints: string[];
   boundariesTitle: string;
   boundariesDescription: string;
   detectionBadge: string;
+  annotationLabel: string;
   privacyBadge: string;
   beforeLabel: string;
   afterLabel: string;
@@ -62,6 +62,7 @@ export function FeatureShowcase() {
 
   return (
     <section id="features" className="relative w-full overflow-hidden bg-[var(--background)] py-24 md:py-32">
+      <div className="pointer-events-none absolute inset-x-0 top-20 h-[34rem] bg-[radial-gradient(circle_at_28%_42%,rgba(82,102,235,0.12),transparent_26%),radial-gradient(circle_at_76%_62%,rgba(82,102,235,0.10),transparent_24%)] blur-3xl" />
       <div className="mx-auto max-w-7xl px-6 md:px-12">
         <div className="mb-16 text-center md:mb-20">
           <h2 className="mb-6 text-3xl font-bold tracking-tight text-[var(--text-primary)] md:text-5xl">
@@ -74,16 +75,16 @@ export function FeatureShowcase() {
 
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-12 lg:gap-6">
           <article className={`${tileClassName} min-h-[460px] p-7 md:p-10 lg:col-span-6 lg:row-span-2`}>
-            <span className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(82,102,235,0.18),transparent_38%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.05),transparent_30%)]" />
+            <span className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(82,102,235,0.2),transparent_38%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.04),transparent_30%)]" />
             <div className="relative z-10 max-w-md">
               <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent-soft)] text-[var(--accent)]">
-                <AnnotateIcon />
+                <CaptureIcon />
               </div>
               <h3 className="text-3xl font-bold tracking-tight text-[var(--text-primary)] md:text-4xl">
-                {featuresData?.annotate?.title}
+                {featuresData?.capture?.title}
               </h3>
               <p className="mt-4 max-w-[34ch] text-base leading-7 text-[var(--text-secondary)] md:text-lg">
-                {featuresData?.annotate?.description}
+                {featuresData?.capture?.description}
               </p>
             </div>
 
@@ -120,15 +121,15 @@ export function FeatureShowcase() {
                   </div>
                   <div className="relative">
                     <Image
-                      src="/images/feature_annotate.png"
-                      alt={featuresData?.annotate?.title || ""}
+                      src="/images/feature_capture.png"
+                      alt={featuresData?.capture?.title || ""}
                       fill
                       className="object-cover object-top"
                       priority
                     />
                     <div className="absolute inset-x-8 top-7 h-9 rounded-xl border border-[var(--accent)]/35 bg-[var(--accent)]/12 shadow-[0_0_24px_rgba(82,102,235,0.16)]" />
                     <div className="absolute bottom-10 left-8 right-16 rounded-[22px] border border-white/8 bg-[linear-gradient(180deg,rgba(16,17,23,0.18),rgba(16,17,23,0.45))] p-4 backdrop-blur-sm">
-                      <div className="mb-3 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">
+                      <div className="mb-3 flex items-center gap-2 text-[11px] font-semibold text-[var(--accent)]/82">
                         <span className="h-2 w-2 rounded-full bg-[var(--accent)]" />
                         XenSnip
                       </div>
@@ -149,14 +150,14 @@ export function FeatureShowcase() {
             <div className="relative z-10 flex h-full flex-col justify-between">
               <div>
                 <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)]/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
-                  <CaptureIcon />
+                  <AnnotateIcon />
                   {support?.precisionLabel}
                 </div>
                 <h3 className="max-w-[14ch] text-2xl font-bold tracking-tight text-[var(--text-primary)] md:text-[2rem]">
-                  {featuresData?.capture?.title}
+                  {featuresData?.annotate?.title}
                 </h3>
                 <p className="mt-3 max-w-[34ch] text-base leading-7 text-[var(--text-secondary)]">
-                  {featuresData?.capture?.description}
+                  {featuresData?.annotate?.description}
                 </p>
               </div>
 
@@ -166,12 +167,12 @@ export function FeatureShowcase() {
                 <div className="absolute inset-x-0 top-[55%] h-px bg-[var(--accent)]/65 shadow-[0_0_16px_rgba(82,102,235,0.65)]" />
                 <div className="absolute left-[42%] top-[55%] h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[var(--accent)] bg-[var(--surface-elevated)]" />
                 <div className="absolute right-4 top-4 flex items-center gap-3 rounded-2xl border border-[var(--accent)]/30 bg-[var(--surface-elevated)]/88 px-4 py-3 shadow-[0_18px_28px_-20px_rgba(82,102,235,0.7)] backdrop-blur-sm">
-                  <span className="border-r border-[var(--accent)]/25 pr-3 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--accent)]">
-                    Edge Snap
+                  <span className="border-r border-[var(--accent)]/20 pr-3 text-[11px] font-medium text-[var(--text-muted)]">
+                    {support?.annotationLabel}
                   </span>
-                  <span className="text-2xl font-light tracking-[0.24em] text-[var(--text-primary)]">10x</span>
+                  <span className="text-2xl font-light text-[var(--text-secondary)]">10x</span>
                 </div>
-                <div className="absolute bottom-3 left-[42%] -translate-x-1/2 rounded-full border border-white/6 bg-[var(--surface)]/90 px-3 py-1 text-xs text-[var(--text-secondary)] shadow-[0_10px_20px_-14px_rgba(0,0,0,0.7)]">
+                <div className="absolute bottom-3 left-[42%] -translate-x-1/2 rounded-full border border-white/6 bg-[var(--surface)]/90 px-3 py-1 text-xs text-[var(--text-muted)] shadow-[0_10px_20px_-14px_rgba(0,0,0,0.7)]">
                   {support?.precisionHint}
                 </div>
               </div>
@@ -181,26 +182,25 @@ export function FeatureShowcase() {
           <article className={`${tileClassName} min-h-[180px] p-7 md:p-8 lg:col-span-6`}>
             <div className="relative z-10 flex h-full flex-col justify-between gap-8 md:flex-row md:items-end">
               <div className="max-w-[16rem]">
-                <div className="mb-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+                <div className="mb-5 text-[11px] font-medium text-[var(--text-muted)]">
                   {support?.focusLabel}
                 </div>
-                <div className="space-y-3">
+                <div className="space-y-4">
                   {support?.focusPoints?.map((item) => (
-                    <div key={item} className="flex items-center gap-3 text-sm text-[var(--text-secondary)]">
-                      <span className="h-2 w-2 rounded-full bg-[var(--accent)]/85" />
+                    <div key={item} className="flex items-center gap-3 text-[15px] text-[var(--text-secondary)]">
+                      <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[var(--border)] text-[var(--text-muted)]">
+                        <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]/75" />
+                      </span>
                       <span>{item}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="max-w-[24rem] md:text-right">
+              <div className="max-w-[22rem] md:text-right">
                 <h3 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)] md:text-[2rem]">
                   {support?.focusTitle}
                 </h3>
-                <p className="mt-3 text-base leading-7 text-[var(--text-secondary)]">
-                  {support?.focusDescription}
-                </p>
               </div>
             </div>
           </article>
@@ -232,7 +232,7 @@ export function FeatureShowcase() {
                     className="rounded-[22px] object-cover object-left-top opacity-85"
                   />
                   <div className="absolute inset-4 rounded-[18px] border-2 border-[var(--accent)] bg-[var(--accent)]/8 shadow-[0_0_0_1px_rgba(255,255,255,0.08)]">
-                    <div className="absolute -right-3 -top-3 rounded-full bg-[var(--accent)] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-white shadow-[0_12px_24px_-14px_rgba(82,102,235,0.9)]">
+                    <div className="absolute -right-3 -top-3 rounded-full bg-[var(--accent)] px-3 py-1 text-[10px] font-medium text-white shadow-[0_12px_24px_-14px_rgba(82,102,235,0.9)]">
                       {support?.detectionBadge}
                     </div>
                     {["-top-1.5 -left-1.5", "-top-1.5 -right-1.5", "-bottom-1.5 -left-1.5", "-bottom-1.5 -right-1.5"].map((position) => (
@@ -264,7 +264,7 @@ export function FeatureShowcase() {
 
               <div className="relative mt-8 flex min-h-[118px] items-center">
                 <div className="max-w-[22rem] flex-1 pr-16">
-                  <div className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+                  <div className="mb-2 text-xs font-medium text-[var(--text-muted)]">
                     API Key
                   </div>
                   <div className="rounded-[18px] border border-[var(--border)] bg-[var(--background)]/70 px-5 py-4 font-mono text-sm text-[var(--text-secondary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
@@ -286,7 +286,7 @@ export function FeatureShowcase() {
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(130,145,255,0.08),transparent_60%)]" />
                   <div className="absolute inset-0 blur-[14px]" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.18), rgba(82,102,235,0.18), rgba(255,255,255,0.08))" }} />
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="rounded-full border border-[var(--accent)]/30 bg-[var(--accent)]/14 px-4 py-2 text-sm font-semibold text-[var(--accent)] shadow-[0_0_24px_rgba(82,102,235,0.18)]">
+                    <span className="rounded-full border border-[var(--accent)]/30 bg-[var(--accent)]/14 px-4 py-2 text-sm font-medium text-[var(--text-secondary)] shadow-[0_0_24px_rgba(82,102,235,0.18)]">
                       {support?.privacyBadge}
                     </span>
                   </div>
