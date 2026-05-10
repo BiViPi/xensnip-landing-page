@@ -24,7 +24,9 @@ interface BeatContent {
   bullets: string[];
 }
 
-function getBeatImageSrc(visual: BeatVisual) {
+function getBeatImageSrc(beatId: string, visual: BeatVisual) {
+  if (beatId === "why") return "/images/hero_why_snipping_tool.png";
+  if (beatId === "gap") return "/images/hero_gap_patchwork_tools.png";
   if (visual === "before") return "/images/before_polished.png";
   if (visual === "proof") return "/images/proof_polished.png";
   return "/images/after_polished.png";
@@ -34,7 +36,7 @@ const BEATS_CONFIG: BeatDef[] = [
   { id: "why", visual: "before", scrollRange: [0.15, 0.30] },
   { id: "gap", visual: "before", scrollRange: [0.30, 0.45] },
   { id: "answer", visual: "after", scrollRange: [0.45, 0.60] },
-  { id: "evidence", visual: "proof", scrollRange: [0.60, 0.85] },
+  { id: "evidence", visual: "after", scrollRange: [0.60, 0.85] },
   { id: "result", visual: "after", scrollRange: [0.85, 1.00] }
 ];
 
@@ -210,7 +212,7 @@ function SplitTextSide({ progress }: { progress: MotionValue<number> }) {
             <div className="mt-10 lg:hidden">
               <div className="card-surface overflow-hidden rounded-2xl">
                 <Image
-                  src={getBeatImageSrc(beat.visual)}
+                  src={getBeatImageSrc(beat.id, beat.visual)}
                   alt={beatContent?.label || ""}
                   width={1200}
                   height={800}
@@ -270,7 +272,7 @@ function SplitVisualSide({ progress }: { progress: MotionValue<number> }) {
             : ["20%", "0%", "0%", "20%"]
         );
 
-        const imgSrc = getBeatImageSrc(beat.visual);
+        const imgSrc = getBeatImageSrc(beat.id, beat.visual);
 
         return (
           <MotionDiv
