@@ -35,13 +35,15 @@ export function FAQ() {
                 className="flex w-full items-center justify-between p-6 text-left transition-colors hover:bg-[var(--border-soft)]"
               >
                 <span className="text-lg font-semibold text-[var(--text-primary)]">{faq.question}</span>
-                <span
-                  className={`text-[var(--accent)] transition-transform duration-300 ${openIndex === i ? "rotate-180" : ""}`}
+                <motion.span
+                  animate={{ rotate: openIndex === i ? 180 : 0 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 25 }}
+                  className="text-[var(--accent)]"
                 >
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M6 9l6 6 6-6" />
                   </svg>
-                </span>
+                </motion.span>
               </button>
               
               <AnimatePresence>
