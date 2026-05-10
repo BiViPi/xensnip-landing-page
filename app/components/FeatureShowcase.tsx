@@ -219,31 +219,67 @@ export function FeatureShowcase() {
                 </p>
               </div>
 
-              <div className="relative mt-8 h-28">
-                <div className="absolute bottom-0 right-2 h-24 w-32 rounded-[22px] border border-[var(--border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(243,244,246,0.9))] shadow-[var(--bright-rim)] dark:bg-[linear-gradient(180deg,rgba(248,249,250,0.95),rgba(226,232,240,0.86))]">
+              <div className="relative mt-8 h-36 overflow-hidden rounded-[24px] border border-[var(--border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))] shadow-[0_18px_36px_-24px_rgba(0,0,0,0.7),var(--bright-rim)]">
+                <div className="absolute inset-x-0 bottom-0 top-10 bg-[radial-gradient(circle_at_left_bottom,rgba(82,102,235,0.10),transparent_34%)]" />
+
+                <div className="absolute right-4 top-9 h-24 w-28 rounded-[20px] border border-[var(--border)] bg-[linear-gradient(180deg,rgba(248,249,250,0.96),rgba(226,232,240,0.88))] opacity-90 shadow-[var(--bright-rim)] dark:bg-[linear-gradient(180deg,rgba(244,246,250,0.96),rgba(214,220,230,0.88))]">
                   <div className="flex h-6 items-center gap-1 px-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#ff6b6b]/75" />
                     <span className="h-1.5 w-1.5 rounded-full bg-[#ffd166]/75" />
                     <span className="h-1.5 w-1.5 rounded-full bg-[#80ed99]/75" />
                   </div>
                 </div>
-                <div className="absolute bottom-0 left-0 h-28 w-44 rounded-[22px] border border-[var(--border)] bg-[var(--panel)] shadow-[0_18px_36px_-24px_rgba(0,0,0,0.7),var(--bright-rim)]">
-                  <Image
-                    src="/images/feature_capture.png"
-                    alt={support?.boundariesTitle || ""}
-                    fill
-                    className="rounded-[22px] object-cover object-left-top opacity-85"
-                  />
-                  <div className="absolute inset-4 rounded-[18px] border-2 border-[var(--accent)] bg-[var(--accent)]/8 shadow-[0_0_0_1px_rgba(255,255,255,0.08)]">
-                    <div className="absolute -right-3 -top-3 rounded-full bg-[var(--accent)] px-3 py-1 text-[10px] font-medium text-white shadow-[0_12px_24px_-14px_rgba(82,102,235,0.9)]">
-                      {support?.detectionBadge}
+
+                <div className="absolute bottom-4 left-4 right-14 top-5 rounded-[22px] border border-[var(--border)] bg-[var(--panel)] shadow-[0_22px_36px_-24px_rgba(0,0,0,0.7),var(--bright-rim)]">
+                  <div className="flex h-7 items-center gap-1.5 border-b border-[var(--border)] px-3">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#ff6b6b]/75" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#ffd166]/75" />
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#80ed99]/75" />
+                    <div className="ml-3 h-3 flex-1 rounded-full bg-[var(--border-soft)]/80" />
+                  </div>
+
+                  <div className="grid h-[calc(100%-28px)] grid-cols-[42px_minmax(0,1fr)]">
+                    <div className="border-r border-[var(--border)] bg-[var(--surface)]/92 px-2 py-3">
+                      <div className="space-y-2">
+                        {[0, 1, 2, 3].map((item) => (
+                          <div key={item} className="h-5 rounded-lg bg-[var(--border-soft)]/70" />
+                        ))}
+                      </div>
                     </div>
-                    {["-top-1.5 -left-1.5", "-top-1.5 -right-1.5", "-bottom-1.5 -left-1.5", "-bottom-1.5 -right-1.5"].map((position) => (
-                      <span
-                        key={position}
-                        className={`absolute h-3 w-3 rounded-full border-2 border-[var(--accent)] bg-white ${position}`}
-                      />
-                    ))}
+
+                    <div className="relative overflow-hidden px-3 py-3">
+                      <div className="mb-2 flex items-center gap-2">
+                        <div className="h-5 w-16 rounded-full bg-[var(--accent)]/18" />
+                        <div className="h-5 w-10 rounded-full bg-[var(--border-soft)]/75" />
+                      </div>
+                      <div className="grid grid-cols-[68px_minmax(0,1fr)] gap-3">
+                        <div className="space-y-2">
+                          {[0, 1, 2, 3].map((item) => (
+                            <div key={item} className="h-4 rounded-md bg-[var(--border-soft)]/65" />
+                          ))}
+                        </div>
+                        <div className="space-y-2">
+                          {[0, 1, 2].map((item) => (
+                            <div key={item} className="rounded-xl border border-[var(--border)] bg-[var(--surface)]/78 p-2">
+                              <div className="mb-1 h-2.5 w-2/3 rounded-full bg-[var(--border-soft)]/80" />
+                              <div className="h-2 w-full rounded-full bg-[var(--border-soft)]/55" />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="absolute inset-2 rounded-[18px] border-2 border-[var(--accent)] bg-[var(--accent)]/7 shadow-[0_0_0_1px_rgba(255,255,255,0.06),0_0_30px_rgba(82,102,235,0.14)]">
+                        <div className="absolute -right-3 -top-3 rounded-full bg-[var(--accent)] px-3 py-1 text-[10px] font-medium text-white shadow-[0_12px_24px_-14px_rgba(82,102,235,0.9)]">
+                          {support?.detectionBadge}
+                        </div>
+                        {["-top-1.5 -left-1.5", "-top-1.5 -right-1.5", "-bottom-1.5 -left-1.5", "-bottom-1.5 -right-1.5"].map((position) => (
+                          <span
+                            key={position}
+                            className={`absolute h-3 w-3 rounded-full border-2 border-[var(--accent)] bg-white ${position}`}
+                          />
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
