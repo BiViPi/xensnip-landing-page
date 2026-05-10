@@ -47,6 +47,10 @@ const BEATS_CONFIG: BeatDef[] = [
   { id: "result", visual: "after", scrollRange: [0.85, 1.00] }
 ];
 
+const INTRO_PIVOT_START = 0.12;
+const INTRO_PIVOT_MID = 0.14;
+const INTRO_PIVOT_END = 0.19;
+
 // ─── SUB-COMPONENTS ──────────────────────────────────────────────────────────
 
 function Typewriter({ text, start }: { text: string; start: boolean }) {
@@ -76,9 +80,29 @@ function Typewriter({ text, start }: { text: string; start: boolean }) {
 }
 
 function IntroScreen({ progress }: { progress: MotionValue<number> }) {
-  const opacity = useTransform(progress, [0, 0.08, 0.14], [1, 1, 0]);
-  const scale = useTransform(progress, [0, 0.14], [1, 0.95]);
-  const y = useTransform(progress, [0, 0.14], [0, -40]);
+  const opacity = useTransform(
+    progress,
+    [0, INTRO_PIVOT_START, INTRO_PIVOT_MID, INTRO_PIVOT_END],
+    [1, 1, 0.9, 0]
+  );
+  const scale = useTransform(progress, [0, INTRO_PIVOT_END], [1, 0.97]);
+  const y = useTransform(progress, [0, INTRO_PIVOT_END], [0, -28]);
+  const headlineX = useTransform(
+    progress,
+    [0, INTRO_PIVOT_START, INTRO_PIVOT_MID, INTRO_PIVOT_END],
+    [0, 0, -72, -220]
+  );
+  const headlineY = useTransform(
+    progress,
+    [0, INTRO_PIVOT_START, INTRO_PIVOT_MID, INTRO_PIVOT_END],
+    [0, 0, -18, -52]
+  );
+  const headlineScale = useTransform(
+    progress,
+    [0, INTRO_PIVOT_START, INTRO_PIVOT_MID, INTRO_PIVOT_END],
+    [1, 1, 0.92, 0.76]
+  );
+  const subtitleOpacity = useTransform(progress, [0, INTRO_PIVOT_START, INTRO_PIVOT_END], [1, 1, 0]);
   const [started, setStarted] = useState(false);
   const { t } = useTranslation();
 
@@ -93,6 +117,7 @@ function IntroScreen({ progress }: { progress: MotionValue<number> }) {
       className="absolute inset-0 flex flex-col items-center justify-center bg-[var(--background)] z-50 px-6"
     >
       <MotionH1 
+        style={{ x: headlineX, y: headlineY, scale: headlineScale, transformOrigin: "center center" }}
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -101,6 +126,7 @@ function IntroScreen({ progress }: { progress: MotionValue<number> }) {
         {t("hero.welcome")}
       </MotionH1>
       <MotionDiv
+        style={{ opacity: subtitleOpacity }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6, duration: 0.8 }}
@@ -128,11 +154,21 @@ function SplitTextSide({ progress }: { progress: MotionValue<number> }) {
         const opacity = useTransform(progress, range, [0, 1, 1, 0]);
         // eslint-disable-next-line react-hooks/rules-of-hooks
         const y = useTransform(progress, range, [40, 0, 0, -40]);
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const x = useTransform(
+          progress,
+          beat.id === "why"
+            ? [INTRO_PIVOT_MID, start, fadeOutStart, end]
+            : range,
+          beat.id === "why"
+            ? [56, 0, 0, -24]
+            : [0, 0, 0, -16]
+        );
         
         return (
           <MotionDiv 
             key={beat.id}
-            style={{ opacity, y, pointerEvents: opacity.get() > 0.5 ? "auto" : "none" }}
+            style={{ opacity, x, y, pointerEvents: opacity.get() > 0.5 ? "auto" : "none" }}
             className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex flex-col"
           >
             <span className="text-sm font-bold text-[var(--accent)] uppercase mb-4">
@@ -199,9 +235,20 @@ function SplitTextSide({ progress }: { progress: MotionValue<number> }) {
 function SplitVisualSide({ progress }: { progress: MotionValue<number> }) {
   const { t } = useTranslation();
   const beatsData = t<Record<string, BeatContent>>("hero.beats");
+  const shellOpacity = useTransform(progress, [INTRO_PIVOT_START, INTRO_PIVOT_END], [0, 1]);
+  const shellX = useTransform(progress, [INTRO_PIVOT_START, INTRO_PIVOT_END], [120, 0]);
+  const shellScale = useTransform(progress, [INTRO_PIVOT_START, INTRO_PIVOT_END], [0.96, 1]);
+  const shellClipPath = useTransform(
+    progress,
+    [INTRO_PIVOT_START, INTRO_PIVOT_END],
+    ["inset(0 0 0 100% round 1.5rem)", "inset(0 0 0 0% round 1.5rem)"]
+  );
   
   return (
-    <div className="relative h-full flex items-center justify-center w-full">
+    <MotionDiv
+      style={{ opacity: shellOpacity, x: shellX, scale: shellScale, clipPath: shellClipPath }}
+      className="relative h-full flex items-center justify-center w-full"
+    >
       {BEATS_CONFIG.map((beat) => {
         const beatContent = beatsData?.[beat.id];
         const [start, end] = beat.scrollRange;
@@ -235,7 +282,7 @@ function SplitVisualSide({ progress }: { progress: MotionValue<number> }) {
           </MotionDiv>
         );
       })}
-    </div>
+    </MotionDiv>
   );
 }
 
