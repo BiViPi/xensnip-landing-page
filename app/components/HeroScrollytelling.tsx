@@ -209,7 +209,7 @@ function IntroScreen({ progress }: { progress: MotionValue<number> }) {
   return (
     <MotionDiv
       style={{ opacity, scale, y, pointerEvents: opacity.get() > 0 ? "auto" : "none" }}
-      className="absolute inset-0 flex flex-col items-center justify-center bg-[var(--background)] z-50 px-6"
+      className="absolute inset-0 flex flex-col items-center justify-center bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,0.08),transparent_25%),radial-gradient(circle_at_top_right,rgba(34,211,238,0.05),transparent_25%),linear-gradient(180deg,color-mix(in_srgb,var(--background)_95%,white)_0%,var(--background)_100%)] z-50 px-6"
     >
       <MotionH1
         style={{ x: headlineX, y: headlineY, scale: headlineScale, transformOrigin: "center center" }}
