@@ -85,6 +85,9 @@
       "detectionBadge": "Auto-Detect",
       "annotationLabel": "Quick annotate",
       "privacyBadge": "Smart Blur",
+      "privacyModes": ["Blur", "Pixelate"],
+      "privacyClearLabel": "Before redaction",
+      "privacyMaskedLabel": "After redaction",
       "beforeLabel": "Before",
       "afterLabel": "After"
     }

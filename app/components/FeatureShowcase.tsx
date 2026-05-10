@@ -47,6 +47,9 @@ interface SupportContent {
   detectionBadge: string;
   annotationLabel: string;
   privacyBadge: string;
+  privacyModes: string[];
+  privacyClearLabel: string;
+  privacyMaskedLabel: string;
   beforeLabel: string;
   afterLabel: string;
 }
@@ -250,45 +253,87 @@ export function FeatureShowcase() {
           <article className={`${tileClassName} min-h-[240px] p-7 md:p-8 lg:col-span-8`}>
             <span className="absolute inset-0 bg-[radial-gradient(circle_at_top_center,rgba(82,102,235,0.12),transparent_42%)]" />
             <div className="relative z-10 flex h-full flex-col justify-between">
-              <div className="max-w-[24rem]">
-                <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--accent-soft)] text-[var(--accent)]">
-                  <RedactIcon />
+              <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
+                <div className="max-w-[24rem]">
+                  <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--accent-soft)] text-[var(--accent)]">
+                    <RedactIcon />
+                  </div>
+                  <h3 className="text-2xl font-bold tracking-tight text-[var(--text-primary)]">
+                    {featuresData?.redact?.title}
+                  </h3>
+                  <p className="mt-3 text-base leading-7 text-[var(--text-secondary)]">
+                    {featuresData?.redact?.description}
+                  </p>
                 </div>
-                <h3 className="text-2xl font-bold tracking-tight text-[var(--text-primary)]">
-                  {featuresData?.redact?.title}
-                </h3>
-                <p className="mt-3 text-base leading-7 text-[var(--text-secondary)]">
-                  {featuresData?.redact?.description}
-                </p>
+
+                <div className="inline-flex w-fit rounded-full border border-[var(--border)] bg-[var(--surface)]/88 p-1 shadow-[0_12px_24px_-18px_rgba(0,0,0,0.55),var(--bright-rim)]">
+                  {support?.privacyModes?.map((mode, index) => (
+                    <span
+                      key={mode}
+                      className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+                        index === 0
+                          ? "bg-[var(--accent)]/14 text-[var(--accent)]"
+                          : "text-[var(--text-muted)]"
+                      }`}
+                    >
+                      {mode}
+                    </span>
+                  ))}
+                </div>
               </div>
 
-              <div className="relative mt-8 flex min-h-[118px] items-center">
-                <div className="max-w-[22rem] flex-1 pr-16">
-                  <div className="mb-2 text-xs font-medium text-[var(--text-muted)]">
-                    API Key
+              <div className="relative mt-8 overflow-hidden rounded-[24px] border border-[var(--border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01))] shadow-[0_22px_42px_-30px_rgba(0,0,0,0.75),var(--bright-rim)]">
+                <div className="grid gap-px bg-[var(--border)] md:grid-cols-2">
+                  <div className="bg-[var(--surface-elevated)] px-5 py-5">
+                    <div className="mb-3 text-[11px] font-medium text-[var(--text-muted)]">
+                      {support?.privacyClearLabel}
+                    </div>
+                    <div className="space-y-3">
+                      <div className="rounded-2xl border border-[var(--border)] bg-[var(--background)]/72 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
+                        <div className="mb-2 text-[10px] font-medium text-[var(--text-muted)]">API Key</div>
+                        <div className="font-mono text-sm text-[var(--text-secondary)]">sk-live-51NxA...8f92a1</div>
+                      </div>
+                      <div className="rounded-2xl border border-[var(--border)] bg-[var(--background)]/72 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
+                        <div className="mb-2 text-[10px] font-medium text-[var(--text-muted)]">Email</div>
+                        <div className="font-mono text-sm text-[var(--text-secondary)]">ops@xensnip.app</div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="rounded-[18px] border border-[var(--border)] bg-[var(--background)]/70 px-5 py-4 font-mono text-sm text-[var(--text-secondary)] shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
-                    sk-live-51NxA...8f92a1
-                  </div>
-                </div>
 
-                <div className="absolute bottom-1 left-0 right-28 flex items-center gap-3">
-                  <span className="text-xs text-[var(--text-muted)]">{support?.beforeLabel}</span>
-                  <div className="relative h-1.5 flex-1 rounded-full bg-[var(--border-soft)]">
-                    <div className="absolute inset-y-0 left-0 w-2/3 rounded-full bg-[var(--text-secondary)]/55" />
-                    <div className="absolute left-2/3 top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/30 bg-white shadow-[0_8px_18px_-8px_rgba(255,255,255,0.55)]" />
-                  </div>
-                  <span className="text-xs text-[var(--text-muted)]">{support?.afterLabel}</span>
-                </div>
+                  <div className="relative overflow-hidden bg-[var(--surface-elevated)] px-5 py-5">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(82,102,235,0.08),transparent_62%)]" />
+                    <div className="mb-3 text-[11px] font-medium text-[var(--text-muted)]">
+                      {support?.privacyMaskedLabel}
+                    </div>
+                    <div className="relative space-y-3">
+                      <div className="relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--background)]/62 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
+                        <div className="mb-2 text-[10px] font-medium text-[var(--text-muted)]">API Key</div>
+                        <div className="font-mono text-sm text-transparent select-none">sk-live-51NxA...8f92a1</div>
+                        <div className="absolute inset-x-4 bottom-3 top-7 overflow-hidden rounded-xl border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.10),rgba(255,255,255,0.04))] shadow-[var(--bright-rim)] backdrop-blur-xl">
+                          <div className="absolute inset-0 opacity-15 mix-blend-overlay" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }} />
+                          <div className="absolute inset-0 blur-[12px]" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.14), rgba(82,102,235,0.18), rgba(255,255,255,0.08))" }} />
+                        </div>
+                      </div>
 
-                <div className="absolute right-0 top-1/2 h-28 w-[38%] min-w-[180px] -translate-y-1/2 overflow-hidden rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.10),rgba(255,255,255,0.03))] shadow-[0_28px_48px_-26px_rgba(0,0,0,0.75),var(--bright-rim)] backdrop-blur-xl">
-                  <div className="absolute inset-0 opacity-18 mix-blend-overlay" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }} />
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(130,145,255,0.08),transparent_60%)]" />
-                  <div className="absolute inset-0 blur-[14px]" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.18), rgba(82,102,235,0.18), rgba(255,255,255,0.08))" }} />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="rounded-full border border-[var(--accent)]/30 bg-[var(--accent)]/14 px-4 py-2 text-sm font-medium text-[var(--text-secondary)] shadow-[0_0_24px_rgba(82,102,235,0.18)]">
-                      {support?.privacyBadge}
-                    </span>
+                      <div className="relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--background)]/62 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
+                        <div className="mb-2 text-[10px] font-medium text-[var(--text-muted)]">Email</div>
+                        <div className="font-mono text-sm text-transparent select-none">ops@xensnip.app</div>
+                        <div className="absolute inset-x-4 bottom-3 top-7 grid grid-cols-11 gap-1 rounded-xl">
+                          {Array.from({ length: 22 }).map((_, index) => (
+                            <span
+                              key={index}
+                              className="h-3 rounded-[4px] bg-[var(--accent)]/18 shadow-[0_0_10px_rgba(82,102,235,0.08)]"
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="pointer-events-none absolute right-4 top-4">
+                      <span className="rounded-full border border-[var(--accent)]/22 bg-[var(--accent)]/12 px-3 py-1.5 text-xs font-medium text-[var(--text-secondary)] shadow-[0_0_20px_rgba(82,102,235,0.14)]">
+                        {support?.privacyBadge}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>

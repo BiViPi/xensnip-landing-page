@@ -85,6 +85,9 @@
       "detectionBadge": "Tự dò biên",
       "annotationLabel": "Ghi chú nhanh",
       "privacyBadge": "Làm mờ thông minh",
+      "privacyModes": ["Blur", "Pixelate"],
+      "privacyClearLabel": "Trước khi che",
+      "privacyMaskedLabel": "Sau khi che",
       "beforeLabel": "Trước",
       "afterLabel": "Sau"
     }
