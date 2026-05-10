@@ -121,7 +121,7 @@ function IntroScreen({ progress }: { progress: MotionValue<number> }) {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="text-center text-5xl font-bold tracking-tighter text-[var(--text-primary)] md:text-7xl lg:text-8xl"
+        className="text-center text-5xl font-bold tracking-tighter text-[var(--text-primary)] md:text-7xl lg:text-8xl whitespace-nowrap"
       >
         {t("hero.welcome")}
       </MotionH1>
@@ -146,20 +146,22 @@ function SplitTextSide({ progress }: { progress: MotionValue<number> }) {
       {BEATS_CONFIG.map((beat) => {
         const beatContent = beatsData?.[beat.id];
         const [start, end] = beat.scrollRange;
-        const fadeInEnd = start + 0.05;
         const fadeOutStart = end - 0.05;
-        const range = createRange(start, fadeInEnd, fadeOutStart, end);
         
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        const opacity = useTransform(progress, range, [0, 1, 1, 0]);
+        const opacity = useTransform(progress, [start, start + 0.02, end - 0.02, end], [0, 1, 1, 0]);
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        const y = useTransform(progress, range, [40, 0, 0, -40]);
+        const y = useTransform(progress, [start, start + 0.02, end - 0.02, end], [30, 0, 0, -30]);
+        
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const progressLineHeight = useTransform(progress, [start, end - 0.04], ["0%", "100%"]);
+
         // eslint-disable-next-line react-hooks/rules-of-hooks
         const x = useTransform(
           progress,
           beat.id === "why"
             ? [INTRO_PIVOT_MID, start, fadeOutStart, end]
-            : range,
+            : [start, start + 0.02, end - 0.02, end],
           beat.id === "why"
             ? [56, 0, 0, -24]
             : [0, 0, 0, -16]
@@ -171,34 +173,48 @@ function SplitTextSide({ progress }: { progress: MotionValue<number> }) {
             style={{ opacity, x, y, pointerEvents: opacity.get() > 0.5 ? "auto" : "none" }}
             className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex flex-col"
           >
-            <span className="text-sm font-bold text-[var(--accent)] uppercase mb-4">
+            <span className="text-sm font-bold text-[var(--accent)] uppercase mb-4 tracking-widest">
               {beatContent?.label}
             </span>
-            <h2 className="text-4xl md:text-5xl font-bold text-[var(--text-primary)] leading-tight mb-8 max-w-[20ch]">
+            <h2 className="text-4xl md:text-5xl font-bold text-[var(--text-primary)] leading-tight mb-8 max-w-[20ch] tracking-tight">
               {beatContent?.title}
             </h2>
-            <ul className="space-y-4">
-              {beatContent?.bullets?.map((bullet: string, i: number) => {
-                const bulletStart = start + (i * 0.02);
-                const bulletRange = createRange(bulletStart, bulletStart + 0.03, fadeOutStart, end);
-                
-                // eslint-disable-next-line react-hooks/rules-of-hooks
-                const bOpacity = useTransform(progress, bulletRange, [0, 1, 1, 0]);
-                // eslint-disable-next-line react-hooks/rules-of-hooks
-                const bX = useTransform(progress, bulletRange, [-20, 0, 0, -20]);
+            
+            <div className="relative pl-8">
+              <div className="absolute left-0 top-2 bottom-2 w-[1px] bg-[var(--border)] opacity-30" />
+              <MotionDiv 
+                style={{ height: progressLineHeight }}
+                className="absolute left-0 top-2 w-[1px] bg-[var(--accent)] origin-top shadow-[0_0_8px_rgba(82,102,235,0.8)]"
+              />
 
-                return (
-                  <MotionLi 
-                    key={i}
-                    style={{ opacity: bOpacity, x: bX }}
-                    className="flex items-start text-[var(--text-secondary)] text-lg"
-                  >
-                    <span className="mr-3 mt-2 h-2 w-2 rounded-full bg-[var(--accent)] shrink-0" />
-                    <span>{bullet}</span>
-                  </MotionLi>
-                );
-              })}
-            </ul>
+              <ul className="space-y-6">
+                {beatContent?.bullets?.map((bullet: string, i: number) => {
+                  const bulletStart = start + (i * 0.04);
+                  const bulletActiveStart = bulletStart;
+                  const bulletActiveEnd = bulletStart + 0.05;
+                  
+                  // eslint-disable-next-line react-hooks/rules-of-hooks
+                  const bOpacity = useTransform(
+                    progress, 
+                    [start, bulletActiveStart, bulletActiveStart + 0.01, bulletActiveEnd, end], 
+                    [0, 0.3, 1, 1, 0.3]
+                  );
+                  
+                  // eslint-disable-next-line react-hooks/rules-of-hooks
+                  const bX = useTransform(progress, [bulletActiveStart, bulletActiveStart + 0.02], [-10, 0]);
+
+                  return (
+                    <MotionLi 
+                      key={i}
+                      style={{ opacity: bOpacity, x: bX }}
+                      className="relative flex items-start text-[var(--text-secondary)] text-lg transition-colors duration-300"
+                    >
+                      <span className="mt-1">{bullet}</span>
+                    </MotionLi>
+                  );
+                })}
+              </ul>
+            </div>
 
             <div className="mt-10 lg:hidden">
               <div className="card-surface overflow-hidden rounded-2xl">
@@ -215,14 +231,17 @@ function SplitTextSide({ progress }: { progress: MotionValue<number> }) {
             {beat.id === "result" && (
               <MotionDiv 
                 className="mt-12"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: false }}
+                initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                animate={opacity.get() > 0.8 ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.8, y: 20 }}
+                transition={{ type: "spring", damping: 12, stiffness: 100 }}
               >
-                <a href="https://github.com/BiViPi/xensnip/releases/latest" className="lightning-hover relative inline-flex items-center justify-center rounded-2xl bg-[var(--accent)] px-8 py-4 text-base font-bold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-[var(--accent-hover)] shadow-lg shadow-[0_18px_34px_-16px_rgba(82,102,235,0.75)]">
-                  <span className="pointer-events-none absolute inset-0 rounded-2xl border border-white/20" />
-                  <span className="relative z-10">{t("cta.download")}</span>
-                </a>
+                <div className="relative group inline-block">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-[var(--accent)] to-indigo-400 rounded-2xl blur opacity-30 group-hover:opacity-70 transition duration-1000 group-hover:duration-200 animate-pulse" />
+                  <a href="https://github.com/BiViPi/xensnip/releases/latest" className="lightning-hover relative inline-flex items-center justify-center rounded-2xl bg-[var(--accent)] px-10 py-5 text-lg font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:scale-105 shadow-xl shadow-indigo-500/20 active:scale-95">
+                    <span className="pointer-events-none absolute inset-0 rounded-2xl border border-white/20" />
+                    <span className="relative z-10">{t("cta.download")}</span>
+                  </a>
+                </div>
               </MotionDiv>
             )}
           </MotionDiv>
@@ -235,41 +254,56 @@ function SplitTextSide({ progress }: { progress: MotionValue<number> }) {
 function SplitVisualSide({ progress }: { progress: MotionValue<number> }) {
   const { t } = useTranslation();
   const beatsData = t<Record<string, BeatContent>>("hero.beats");
-  const shellOpacity = useTransform(progress, [INTRO_PIVOT_START, INTRO_PIVOT_END], [0, 1]);
-  const shellX = useTransform(progress, [INTRO_PIVOT_START, INTRO_PIVOT_END], [120, 0]);
-  const shellScale = useTransform(progress, [INTRO_PIVOT_START, INTRO_PIVOT_END], [0.96, 1]);
-  const shellClipPath = useTransform(
+  
+  // Adaptive Background Glow Color
+  const glowColor = useTransform(
     progress,
-    [INTRO_PIVOT_START, INTRO_PIVOT_END],
-    ["inset(0 0 0 100% round 1.5rem)", "inset(0 0 0 0% round 1.5rem)"]
+    [0.15, 0.35, 0.55, 0.75, 0.95],
+    [
+      "rgba(82, 102, 235, 0.05)", 
+      "rgba(255, 100, 100, 0.05)", 
+      "rgba(82, 102, 235, 0.25)", 
+      "rgba(100, 210, 255, 0.20)", 
+      "rgba(82, 102, 235, 0.30)"
+    ]
   );
   
   return (
-    <MotionDiv
-      style={{ opacity: shellOpacity, x: shellX, scale: shellScale, clipPath: shellClipPath }}
-      className="relative h-full flex items-center justify-center w-full"
-    >
+    <div className="relative h-full flex items-center justify-center w-full">
+      <MotionDiv 
+        style={{ backgroundColor: glowColor, filter: "blur(140px)" }}
+        className="absolute w-[80%] h-[60%] rounded-full opacity-60 mix-blend-screen pointer-events-none"
+      />
+
       {BEATS_CONFIG.map((beat) => {
         const beatContent = beatsData?.[beat.id];
         const [start, end] = beat.scrollRange;
-        const fadeInEnd = start + 0.05;
-        const fadeOutStart = end - 0.05;
-        const range = createRange(start, fadeInEnd, fadeOutStart, end);
         
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        const opacity = useTransform(progress, range, [0, 1, 1, 0]);
+        const opacity = useTransform(progress, [start, start + 0.02, end - 0.02, end], [0, 1, 1, 0]);
+        const isFinal = beat.id === "result";
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        const scale = useTransform(progress, range, [0.95, 1, 1, 0.95]);
+        const scale = useTransform(progress, [start, start + 0.02, end - 0.02, end], [isFinal ? 1 : 0.95, isFinal ? 1.05 : 1, isFinal ? 1.05 : 1, 0.95]);
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const y = useTransform(progress, [start, start + 0.02, end - 0.02, end], [60, 0, 0, -60]);
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const shadowY = useTransform(progress, [start, start + 0.02, end - 0.02, end], [100, 0, 0, -100]);
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const x = beat.id === "why" ? useTransform(progress, [start, start + 0.08], ["100%", "0%"]) : 0;
 
         const imgSrc = getBeatImageSrc(beat.visual);
 
         return (
           <MotionDiv 
             key={beat.id}
-            style={{ opacity, scale }}
+            style={{ opacity, scale, x, y }}
             className="absolute inset-0 flex items-center justify-center w-full"
           >
-            <div className="card-surface relative w-full overflow-hidden rounded-2xl">
+            <MotionDiv 
+              style={{ y: shadowY }}
+              className="absolute inset-8 bg-black/60 blur-3xl rounded-[2rem] -z-10 opacity-50"
+            />
+            <div className="card-surface relative w-full overflow-hidden rounded-2xl shadow-2xl">
               <Image
                 src={imgSrc}
                 alt={beatContent?.label || ""}
@@ -282,7 +316,7 @@ function SplitVisualSide({ progress }: { progress: MotionValue<number> }) {
           </MotionDiv>
         );
       })}
-    </MotionDiv>
+    </div>
   );
 }
 
@@ -298,7 +332,7 @@ export function HeroScrollytelling() {
 
   const smoothProgress = useSpring(scrollYProgress, {
     damping: 30,
-    stiffness: 100,
+    stiffness: 120,
     mass: 0.5
   });
 
@@ -309,9 +343,7 @@ export function HeroScrollytelling() {
       className="relative h-[600vh] bg-[var(--background)]"
     >
       <div className="sticky top-0 h-[100dvh] w-full overflow-hidden flex items-center justify-center">
-        
         <IntroScreen progress={smoothProgress} />
-
         <div className="w-full max-w-7xl mx-auto px-8 md:px-16 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 h-full relative z-10">
           <div className="h-full relative">
             <SplitTextSide progress={smoothProgress} />
@@ -336,7 +368,6 @@ export function HeroScrollytelling() {
             />
           </div>
         </MotionDiv>
-
       </div>
     </MotionSection>
   );
