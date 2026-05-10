@@ -26,16 +26,16 @@ interface BeatContent {
 
 function BackgroundPopover() {
   return (
-    <div className="w-[24rem] rounded-[28px] border border-[#d6dae5] bg-[linear-gradient(180deg,#fbfcff_0%,#f1f4fb_100%)] p-4 shadow-[0_30px_60px_-26px_rgba(10,18,38,0.48),inset_0_1px_0_rgba(255,255,255,0.96)]">
-      <div className="mb-3 text-[13px] font-bold text-[#1e2330]">Background</div>
-      <div className="mb-4 grid grid-cols-3 gap-2 rounded-2xl bg-[#eef1f7] p-1">
-        <div className="rounded-xl bg-[#5b4ff4] px-3 py-2 text-center text-[11px] font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]">
+    <div className="w-[20.5rem] rounded-[24px] border border-[#d6dae5] bg-[linear-gradient(180deg,#fbfcff_0%,#f6f8fd_48%,#edf3ff_100%)] p-3.5 shadow-[0_28px_54px_-28px_rgba(10,18,38,0.48),inset_0_1px_0_rgba(255,255,255,0.96)]">
+      <div className="mb-2.5 text-[12px] font-bold text-[#1e2330]">Background</div>
+      <div className="mb-3.5 grid grid-cols-3 gap-1.5 rounded-[18px] bg-[#eef1f7] p-1">
+        <div className="rounded-[14px] bg-[#5b4ff4] px-2.5 py-1.5 text-center text-[10px] font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]">
           Gradient
         </div>
-        <div className="rounded-xl px-3 py-2 text-center text-[11px] font-medium text-[#697387]">Solid</div>
-        <div className="rounded-xl px-3 py-2 text-center text-[11px] font-medium text-[#697387]">Image</div>
+        <div className="rounded-[14px] px-2.5 py-1.5 text-center text-[10px] font-medium text-[#697387]">Solid</div>
+        <div className="rounded-[14px] px-2.5 py-1.5 text-center text-[10px] font-medium text-[#697387]">Image</div>
       </div>
-      <div className="grid grid-cols-6 gap-3">
+      <div className="grid grid-cols-6 gap-2.5">
         {[
           "from-[#854dff] via-[#d946ef] to-[#fbbf24]",
           "from-[#4f46e5] via-[#3b82f6] to-[#67e8f9]",
@@ -44,24 +44,24 @@ function BackgroundPopover() {
           "from-[#4f46e5] via-[#22d3ee] to-[#34d399]",
           "from-[#38bdf8] via-[#8b5cf6] to-[#d946ef]",
         ].map((gradient) => (
-          <div key={gradient} className={`aspect-square rounded-[18px] bg-gradient-to-br ${gradient} shadow-[inset_0_1px_0_rgba(255,255,255,0.28)]`} />
+          <div key={gradient} className={`aspect-square rounded-[16px] bg-gradient-to-br ${gradient} shadow-[inset_0_1px_0_rgba(255,255,255,0.28)]`} />
         ))}
       </div>
-      <div className="mt-4 grid grid-cols-[78px_minmax(0,1fr)] gap-3">
-        <div className="rounded-[22px] border border-[#d8dde9] bg-white/70 p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
-          <div className="rounded-[18px] bg-[#5b4ff4] px-3 py-6 text-center text-[12px] font-semibold text-white">Linear</div>
-          <div className="mt-2 rounded-[18px] px-3 py-6 text-center text-[12px] font-medium text-[#7b8598]">Radial</div>
+      <div className="mt-3.5 grid grid-cols-[64px_minmax(0,1fr)] gap-2.5">
+        <div className="rounded-[20px] border border-[#d8dde9] bg-white/72 p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
+          <div className="rounded-[16px] bg-[#5b4ff4] px-2 py-4.5 text-center text-[11px] font-semibold text-white">Linear</div>
+          <div className="mt-1.5 rounded-[16px] px-2 py-4.5 text-center text-[11px] font-medium text-[#7b8598]">Radial</div>
         </div>
-        <div className="rounded-[22px] border border-[#d8dde9] bg-white/76 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
-          <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full border border-[#e4e7f0] bg-[radial-gradient(circle,#ffffff_0%,#f4f7fc_70%)]">
-            <div className="relative h-16 w-16 rounded-full border-[10px] border-[#e6eaf3]">
-              <div className="absolute inset-[-10px] rounded-full border-[10px] border-transparent border-t-[#55d2ff] border-r-[#6a5cff]" />
-              <div className="absolute right-[-3px] top-[38px] h-3.5 w-3.5 rounded-full border-2 border-[#6a5cff] bg-white" />
+        <div className="rounded-[20px] border border-[#d8dde9] bg-white/78 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
+          <div className="mx-auto flex h-[5.3rem] w-[5.3rem] items-center justify-center rounded-full border border-[#e4e7f0] bg-[radial-gradient(circle,#ffffff_0%,#f4f7fc_70%)]">
+            <div className="relative h-[3.55rem] w-[3.55rem] rounded-full border-[8px] border-[#e6eaf3]">
+              <div className="absolute inset-[-8px] rounded-full border-[8px] border-transparent border-t-[#55d2ff] border-r-[#6a5cff]" />
+              <div className="absolute right-[-2px] top-[33px] h-3 w-3 rounded-full border-2 border-[#6a5cff] bg-white" />
               <div className="absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#c5cbda]" />
             </div>
           </div>
-          <div className="mt-3 text-center text-[11px] tracking-[0.18em] text-[#7a8292]">ANGLE 135°</div>
-          <div className="mt-1 text-center text-[10px] text-[#9ba3b2]">Drag to rotate</div>
+          <div className="mt-2.5 text-center text-[10px] tracking-[0.16em] text-[#7a8292]">ANGLE 135°</div>
+          <div className="mt-1 text-center text-[9px] text-[#9ba3b2]">Drag to rotate</div>
         </div>
       </div>
     </div>
@@ -408,20 +408,20 @@ function SplitVisualSide({ progress }: { progress: MotionValue<number> }) {
               {beat.id === "evidence" && (
                 <div className="pointer-events-none absolute inset-0 overflow-visible">
                   <MotionDiv
-                    style={{ opacity: backgroundOpacity, y: backgroundY, x: -10 }}
-                    className="absolute -bottom-24 left-[-8%] z-30 scale-[0.74] origin-bottom-left"
+                    style={{ opacity: backgroundOpacity, y: backgroundY, x: -4 }}
+                    className="absolute -bottom-32 left-[-5%] z-30 scale-[0.68] origin-bottom-left"
                   >
                     <BackgroundPopover />
                   </MotionDiv>
                   <MotionDiv
-                    style={{ opacity: redactOpacity, y: redactY, x: 8 }}
-                    className="absolute right-[-5%] top-[0%] z-40 scale-[0.88] origin-top-right"
+                    style={{ opacity: redactOpacity, y: redactY, x: 24 }}
+                    className="absolute right-[-18%] top-[-16%] z-40 scale-[0.88] origin-top-right"
                   >
                     <RedactionPopover />
                   </MotionDiv>
                   <MotionDiv
-                    style={{ opacity: ocrOpacity, y: ocrY, x: 10 }}
-                    className="absolute -bottom-[10%] right-[-10%] z-40 scale-[0.92] origin-bottom-right"
+                    style={{ opacity: ocrOpacity, y: ocrY, x: 36 }}
+                    className="absolute -bottom-[40%] right-[-10%] z-40 scale-[0.92] origin-bottom-right"
                   >
                     <OCRPopover />
                   </MotionDiv>
