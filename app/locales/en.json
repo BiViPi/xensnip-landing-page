@@ -150,7 +150,7 @@
       },
       {
         "question": "What does the installer include?",
-        "answer": "The lightweight installer includes the core XenSnip utility and all necessary libraries for local image processing and OCR."
+        "answer": "The lightweight installer includes the core XenSnip utility and local image-processing stack. The OCR model may still download on first use."
       }
     ]
   },

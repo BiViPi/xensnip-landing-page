@@ -104,7 +104,7 @@ function OCRPopover() {
       <div className="flex items-center justify-between">
         <div>
           <div className="text-[12px] font-semibold text-[#202636]">Extract Text</div>
-          <div className="mt-0.5 text-[10px] text-[#8b93a4]">Local OCR</div>
+          <div className="mt-0.5 text-[10px] text-[#8b93a4]">On-Device OCR</div>
         </div>
         <div className="rounded-full border border-[#d7ddea] bg-white/78 px-2.5 py-1 text-[10px] font-medium text-[#5d6576]">Copied</div>
       </div>
