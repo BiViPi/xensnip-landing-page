@@ -43,7 +43,7 @@
         "bullets": [
           "Thêm padding, đổ bóng viền các kiểu chỉ với 1 click.",
           "Bôi mờ, che thông tin mật mượt mà gọn gàng.",
-          "Quét chữ trên ảnh (OCR) mà không cần mạng. Phép thuật là đây!"
+          "Quét chữ trên ảnh (OCR) ngay trên máy. Lần đầu dùng có thể cần mạng để tải model."
         ]
       },
       "result": {
@@ -111,11 +111,11 @@
   "tech": {
     "title": "Công nghệ xịn xò dưới nắp capo.",
     "sysReq": "Yêu cầu hệ thống",
-    "cards": [
+      "cards": [
       { "name": "Tauri 2.0 & Rust", "desc": "Nhanh như điện nhờ sức mạnh của Rust, chạy native trên Windows." },
       { "name": "React 19", "desc": "Giao diện mượt mà, phản hồi tức thì." },
       { "name": "Konva.js", "desc": "Canvas siêu tốc để bạn vẽ bậy không trễ nhịp nào." },
-      { "name": "OCR Offline", "desc": "Quét chữ trong ảnh ngay trên máy, rớt mạng vẫn chạy tốt." }
+      { "name": "On-Device OCR", "desc": "Quét chữ ngay trên máy. Lần đầu dùng có thể cần mạng để tải model OCR." }
     ],
     "stats": [
       { "label": "Dung lượng", "value": "~15 MB" },
@@ -146,7 +146,7 @@
       },
       {
         "question": "Tính năng quét chữ (OCR) có cần mạng không?",
-        "answer": "Hoàn toàn offline. Bạn quét văn bản ngon ơ ngay cả khi cục router nhà bạn vừa bốc khói."
+        "answer": "Không gửi ảnh lên cloud, nhưng bản hiện tại chưa phải offline hoàn toàn. Lần đầu dùng OCR có thể cần mạng để tải model; sau đó bạn quét chữ ngay trên máy."
       },
       {
         "question": "Cài vô có nặng máy không?",

@@ -43,7 +43,7 @@
         "bullets": [
           "Add padding, styling, and beautiful backgrounds in one click.",
           "Blur, pixelate, and redact sensitive information seamlessly.",
-          "Extract text with local OCR and copy directly to your clipboard."
+          "Extract text on-device and copy it directly to your clipboard. First use may require a model download."
         ]
       },
       "result": {
@@ -111,11 +111,11 @@
   "tech": {
     "title": "Built with modern technology.",
     "sysReq": "System Requirements",
-    "cards": [
+      "cards": [
       { "name": "Tauri 2.0 & Rust", "desc": "Native Windows performance with Rust-powered image processing." },
       { "name": "React 19", "desc": "A highly responsive and modern web-based interface." },
       { "name": "Konva.js", "desc": "High-performance 2D canvas for fluid annotations." },
-      { "name": "Local OCR", "desc": "On-device text extraction with zero cloud dependencies." }
+      { "name": "On-Device OCR", "desc": "Text extraction runs on-device. First use may require downloading the OCR model." }
     ],
     "stats": [
       { "label": "Storage", "value": "~15 MB" },
@@ -146,7 +146,7 @@
       },
       {
         "question": "What does OCR support include?",
-        "answer": "The current release includes local OCR for selected regions, allowing you to extract text from screenshots instantly without an internet connection."
+        "answer": "The current release includes on-device OCR for selected regions. It does not upload screenshots to the cloud, but first use may require an internet connection to download the OCR model."
       },
       {
         "question": "What does the installer include?",
