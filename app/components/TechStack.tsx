@@ -111,15 +111,15 @@ export function TechStack() {
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4, duration: 0.6 }}
           viewport={{ once: true }}
-          className="card-surface rounded-[3rem] p-12 md:p-20 relative overflow-hidden"
+          className="card-surface rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-12 md:p-20 relative overflow-hidden"
         >
           <div className="absolute top-0 left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 bg-[var(--accent)]/10 blur-[120px] pointer-events-none" />
           
-          <div className="relative z-10 text-center mb-16">
-             <span className="text-xs font-bold uppercase tracking-[0.4em] text-[var(--text-muted)]">{t("tech.sysReq")}</span>
+          <div className="relative z-10 text-center mb-10 sm:mb-16">
+             <span className="text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.4em] text-[var(--text-muted)]">{t("tech.sysReq")}</span>
           </div>
 
-          <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8">
+          <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-12 md:gap-8">
             {stats.map((stat, i: number) => (
               <MotionDiv 
                 key={stat.label}
@@ -129,10 +129,10 @@ export function TechStack() {
                 viewport={{ once: true }}
                 className="flex flex-col items-center text-center"
               >
-                <span className="text-4xl md:text-5xl font-bold mb-6 tracking-tight text-[var(--text-primary)]">
+                <span className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-6 tracking-tight text-[var(--text-primary)]">
                   {stat.value}
                 </span>
-                <span className="text-[var(--text-muted)] font-bold text-[10px] uppercase tracking-[0.3em]">
+                <span className="text-[var(--text-muted)] font-bold text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.3em] text-center px-1">
                   {stat.label}
                 </span>
               </MotionDiv>

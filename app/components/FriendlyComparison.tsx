@@ -35,7 +35,8 @@ export function FriendlyComparison() {
         </div>
 
         <div className="card-system-template relative overflow-hidden rounded-[2rem]">
-          <div className="grid grid-cols-3 bg-[var(--panel)] border-b border-[var(--border)] p-6 text-sm font-bold uppercase tracking-wider text-[var(--text-muted)]">
+          {/* Header row - Desktop only */}
+          <div className="hidden md:grid grid-cols-3 bg-[var(--panel)] border-b border-[var(--border)] p-6 text-sm font-bold uppercase tracking-wider text-[var(--text-muted)]">
             <div>{headers.feature || "Feature"}</div>
             <div className="text-center">{headers.generic || "Generic Tools"}</div>
             <div className="text-right text-[var(--accent)]">{headers.xensnip || "XenSnip"}</div>
@@ -46,21 +47,55 @@ export function FriendlyComparison() {
               // highlight 1st and last elements as originally designed
               const highlight = index === 0 || index === data.length - 1;
               return (
-              <MotionDiv 
-                key={index}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className={`grid grid-cols-3 p-6 items-center transition-colors hover:bg-[var(--border-soft)] ${highlight ? "bg-[var(--accent-soft)]" : ""}`}
-              >
-                <div className="text-[var(--text-primary)] font-medium">{item.feature}</div>
-                <div className="text-center text-[var(--text-secondary)]">{item.others}</div>
-                <div className={`text-right font-bold ${highlight ? "text-[var(--accent)]" : "text-[var(--text-primary)]"}`}>
-                  {item.xensnip}
-                </div>
-              </MotionDiv>
-            )})}
+                <MotionDiv 
+                  key={index}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className={`transition-colors hover:bg-[var(--border-soft)] ${highlight ? "bg-[var(--accent-soft)]" : ""}`}
+                >
+                  {/* Desktop layout */}
+                  <div className="hidden md:grid grid-cols-3 p-6 items-center">
+                    <div className="text-[var(--text-primary)] font-medium">{item.feature}</div>
+                    <div className="text-center text-[var(--text-secondary)]">{item.others}</div>
+                    <div className={`text-right font-bold ${highlight ? "text-[var(--accent)]" : "text-[var(--text-primary)]"}`}>
+                      {item.xensnip}
+                    </div>
+                  </div>
+
+                  {/* Mobile layout */}
+                  <div className="flex flex-col gap-3 p-5 md:hidden text-sm">
+                    <div className="text-[var(--text-primary)] font-bold text-base border-b border-[var(--border)]/30 pb-2 flex items-center justify-between">
+                      <span>{item.feature}</span>
+                      {highlight && (
+                        <span className="rounded-full bg-[var(--accent)]/10 text-[var(--accent)] px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider">
+                          Key
+                        </span>
+                      )}
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 pt-1">
+                      <div className="flex flex-col gap-1">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)]">
+                          {headers.generic || "Others"}
+                        </span>
+                        <span className="text-[var(--text-secondary)] font-medium">
+                          {item.others}
+                        </span>
+                      </div>
+                      <div className="flex flex-col gap-1 border-l border-[var(--border)]/50 pl-4">
+                        <span className={`text-[10px] font-bold uppercase tracking-wider ${highlight ? "text-[var(--accent)]" : "text-[var(--text-muted)]"}`}>
+                          {headers.xensnip || "XenSnip"}
+                        </span>
+                        <span className={`font-bold ${highlight ? "text-[var(--accent)]" : "text-[var(--text-primary)]"}`}>
+                          {item.xensnip}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </MotionDiv>
+              );
+            })}
           </div>
         </div>
 

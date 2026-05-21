@@ -7,9 +7,9 @@ export function FinalCTA() {
   const { t, locale } = useTranslation();
 
   return (
-    <section className="relative w-full py-32 md:py-48 overflow-hidden bg-[var(--background)]">
+    <section className="relative w-full py-20 md:py-32 overflow-hidden bg-[var(--background)]">
       <div className="max-w-5xl mx-auto px-6 relative z-10">
-        <div className="card-surface rounded-[3rem] p-12 md:p-24 text-center relative overflow-hidden">
+        <div className="card-surface rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-12 md:p-24 text-center relative overflow-hidden">
           {/* Subtle Accent Glow */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[var(--accent)]/10 blur-[100px] pointer-events-none" />
           
@@ -20,19 +20,19 @@ export function FinalCTA() {
             viewport={{ once: true }}
             className="relative z-10"
           >
-            <h2 className="text-3xl md:text-5xl font-bold text-[var(--text-primary)] mb-6 tracking-tight leading-[1.1]">
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-[var(--text-primary)] mb-6 tracking-tight leading-[1.2]">
               {t("cta.title")}
             </h2>
-            <p className="text-lg md:text-xl text-[var(--text-secondary)] mb-12 max-w-xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-[var(--text-secondary)] mb-8 sm:mb-12 max-w-xl mx-auto leading-relaxed">
               {t("cta.subtitle")}
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-10">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
               <MotionA
                 href="https://github.com/BiViPi/xensnip/releases/latest"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                className="lightning-hover relative flex items-center gap-3 overflow-hidden rounded-2xl bg-[var(--accent)] px-8 py-4 text-lg font-bold text-white transition-all shadow-2xl shadow-[var(--accent)]/40 group"
+                className="lightning-hover relative flex w-full sm:w-auto items-center justify-center gap-3 overflow-hidden rounded-2xl bg-[var(--accent)] px-8 py-4 text-base sm:text-lg font-bold text-white transition-all shadow-2xl shadow-[var(--accent)]/40 group"
               >
                 {/* Resting-state lighting */}
                 <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-tr from-white/0 via-white/5 to-white/10" />
@@ -55,7 +55,7 @@ export function FinalCTA() {
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ x: 3 }}
-                className="text-[var(--text-primary)] hover:text-[var(--accent)] text-lg font-bold flex items-center gap-2 transition-all"
+                className="text-[var(--text-primary)] hover:text-[var(--accent)] text-base sm:text-lg font-bold flex items-center justify-center gap-2 py-2 transition-all"
               >
                 {t("cta.github")}
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

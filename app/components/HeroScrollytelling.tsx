@@ -435,6 +435,155 @@ function SplitVisualSide({ progress }: { progress: MotionValue<number> }) {
   );
 }
 
+// ─── MOBILE LAYOUT ───────────────────────────────────────────────────────────
+
+function MobileHeroLayout() {
+  const { t } = useTranslation();
+  const beatsData = t<Record<string, BeatContent>>("hero.beats");
+  const [started, setStarted] = useState(false);
+
+  useEffect(() => {
+    setStarted(true);
+  }, []);
+
+  return (
+    <div className="px-6 py-24 flex flex-col gap-20">
+      {/* Hero Intro (Mobile) */}
+      <div className="min-h-[75dvh] flex flex-col items-center justify-center text-center gap-8 relative">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.08),transparent_50%)] pointer-events-none" />
+        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-[var(--text-primary)] leading-[1.1] max-w-[15ch]">
+          {t("hero.welcome")}
+        </h1>
+        <Typewriter text={t("hero.subtitle")} start={started} />
+        
+        <div className="flex flex-col sm:flex-row items-center gap-4 w-full max-w-sm mt-4">
+          <a
+            href="https://github.com/BiViPi/xensnip/releases/latest"
+            className="lightning-hover relative w-full inline-flex items-center justify-center rounded-2xl bg-[var(--accent)] py-4 text-base font-bold text-white transition-all shadow-xl shadow-indigo-500/20 active:scale-95"
+          >
+            <span className="pointer-events-none absolute inset-0 rounded-2xl border border-white/20" />
+            {t("cta.download")}
+          </a>
+          <a
+            href="https://github.com/BiViPi/xensnip"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full inline-flex items-center justify-center rounded-2xl border border-[var(--border)] bg-[var(--surface)] py-4 text-base font-semibold text-[var(--text-primary)] active:bg-[var(--border-soft)] transition-all"
+          >
+            {t("cta.github")}
+          </a>
+        </div>
+
+        {/* Hero Mockup Image */}
+        <div className="card-surface overflow-hidden rounded-2xl w-full max-w-lg mt-8 shadow-2xl shadow-indigo-500/5">
+          <Image
+            src="/images/after_polished.png"
+            alt="XenSnip Desktop Mockup"
+            width={1200}
+            height={800}
+            className="h-auto w-full animate-fade-in"
+            priority
+          />
+        </div>
+      </div>
+
+      {/* Beats List (Timeline) */}
+      <div className="flex flex-col gap-16 relative">
+        {/* Decorative timeline line in background */}
+        <div className="absolute left-4 top-4 bottom-4 w-[2px] bg-gradient-to-b from-[var(--accent)]/40 via-[var(--border)] to-transparent hidden sm:block" />
+
+        {BEATS_CONFIG.map((beat, index) => {
+          const beatContent = beatsData?.[beat.id];
+          if (!beatContent) return null;
+
+          return (
+            <div 
+              key={beat.id} 
+              className="relative flex flex-col sm:flex-row gap-6 sm:pl-12"
+            >
+              {/* Timeline marker */}
+              <div className="absolute left-2.5 top-2 w-3.5 h-3.5 rounded-full border-4 border-[var(--background)] bg-[var(--accent)] shadow-[0_0_8px_rgba(82,102,235,0.8)] hidden sm:block z-10" />
+
+              <div className="card-surface p-6 sm:p-8 rounded-[2rem] w-full flex flex-col gap-6 relative overflow-hidden transition-all duration-300 hover:border-[var(--accent)]/20">
+                {/* Step number watermark */}
+                <div className="absolute right-6 top-4 text-6xl font-black text-[var(--text-primary)]/5 select-none font-mono">
+                  {`0${index + 1}`}
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <span className="text-xs font-bold text-[var(--accent)] uppercase tracking-wider">
+                    {beatContent.label}
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)] leading-snug pr-12">
+                    {beatContent.title}
+                  </h3>
+                </div>
+
+                <ul className="space-y-3">
+                  {beatContent.bullets?.map((bullet, i) => (
+                    <li key={i} className="flex items-start gap-2.5 text-[var(--text-secondary)] text-sm sm:text-base leading-relaxed">
+                      <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent)]/70 animate-pulse" />
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Show main screenshot for this beat */}
+                <div className="overflow-hidden rounded-xl border border-[var(--border)] shadow-[var(--bright-rim)] bg-[var(--surface)] mt-2">
+                  <Image
+                    src={getBeatImageSrc(beat.id, beat.visual)}
+                    alt={beatContent.label}
+                    width={800}
+                    height={500}
+                    className="h-auto w-full object-cover"
+                  />
+                </div>
+
+                {/* Extra feature details for the 'evidence' step */}
+                {beat.id === "evidence" && (
+                  <div className="grid grid-cols-1 gap-4 mt-2 pt-4 border-t border-[var(--border)]">
+                    <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-elevated)] p-4 flex flex-col gap-2">
+                      <span className="text-xs font-bold text-[#6a5cff] uppercase">Editor Background</span>
+                      <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                        Customize backgrounds with beautiful gradients, solid colors, or rotate linear/radial angles to present screenshots beautifully.
+                      </p>
+                    </div>
+                    <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-elevated)] p-4 flex flex-col gap-2">
+                      <span className="text-xs font-bold text-[#6a5cff] uppercase">Sensitive Redaction</span>
+                      <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                        Securely hide API keys, emails, passwords, and sensitive text using blur or pixelation filters before exporting.
+                      </p>
+                    </div>
+                    <div className="rounded-xl border border-[var(--border)] bg-[var(--surface-elevated)] p-4 flex flex-col gap-2">
+                      <span className="text-xs font-bold text-[#6a5cff] uppercase">On-Device OCR Extraction</span>
+                      <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                        Instantly extract and copy selectable text from captures using offline OCR capabilities without uploading to external clouds.
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Call to Action on the last beat */}
+                {beat.id === "result" && (
+                  <div className="mt-4 pt-2">
+                    <a
+                      href="https://github.com/BiViPi/xensnip/releases/latest"
+                      className="lightning-hover relative w-full inline-flex items-center justify-center rounded-2xl bg-[var(--accent)] py-4 text-base font-bold text-white transition-all shadow-xl shadow-indigo-500/20 active:scale-95"
+                    >
+                      <span className="pointer-events-none absolute inset-0 rounded-2xl border border-white/20" />
+                      {t("cta.download")}
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 // ─── MAIN ORCHESTRATOR ───────────────────────────────────────────────────────
 
 export function HeroScrollytelling() {
@@ -455,15 +604,16 @@ export function HeroScrollytelling() {
     <MotionSection
       id="workflow"
       ref={containerRef}
-      className="relative h-[600vh] bg-[var(--background)]"
+      className="relative h-auto lg:h-[600vh] bg-[var(--background)]"
     >
-      <div className="sticky top-0 h-[100dvh] w-full overflow-hidden flex items-center justify-center">
+      {/* Desktop Scrollytelling View */}
+      <div className="hidden lg:block sticky top-0 h-[100dvh] w-full overflow-hidden">
         <IntroScreen progress={smoothProgress} />
-        <div className="w-full max-w-7xl mx-auto px-8 md:px-16 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 h-full relative z-10">
+        <div className="w-full max-w-7xl mx-auto px-8 md:px-16 grid grid-cols-2 gap-16 lg:gap-24 h-full relative z-10">
           <div className="h-full relative">
             <SplitTextSide progress={smoothProgress} />
           </div>
-          <div className="hidden lg:block h-full relative">
+          <div className="h-full relative">
             <SplitVisualSide progress={smoothProgress} />
           </div>
         </div>
@@ -483,6 +633,11 @@ export function HeroScrollytelling() {
             />
           </div>
         </MotionDiv>
+      </div>
+
+      {/* Mobile Layout */}
+      <div className="block lg:hidden">
+        <MobileHeroLayout />
       </div>
     </MotionSection>
   );
