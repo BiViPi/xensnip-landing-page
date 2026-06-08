@@ -199,13 +199,6 @@ export function FeatureShowcase() {
                   >
                     <source src="/images/merge-by-drag.mp4" type="video/mp4" />
                   </video>
-                  <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full border border-white/15 bg-[rgba(12,16,26,0.62)] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/78 backdrop-blur-md">
-                    <span className="h-2 w-2 rounded-full bg-[var(--accent)] shadow-[0_0_12px_rgba(82,102,235,0.8)]" />
-                    {support?.mergeHint}
-                  </div>
-                  <div className="absolute bottom-5 left-5 rounded-full border border-white/12 bg-[rgba(12,16,26,0.48)] px-4 py-2 text-sm font-medium text-white/84 backdrop-blur-md">
-                    Merge two captures without breaking flow.
-                  </div>
                 </div>
               </div>
             </div>
