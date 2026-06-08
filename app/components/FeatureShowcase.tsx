@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useTranslation } from "../contexts/I18nProvider";
 import { MotionArticle, MotionDiv, MotionSection, MotionSpan } from "./motion-compat";
+import perspectiveFrameImg from "../../public/images/feature_perspective_frame.png";
 
 function CaptureIcon() {
   return (
@@ -24,12 +25,24 @@ function AnnotateIcon() {
   );
 }
 
-function RedactIcon() {
+
+
+function PerspectiveIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 3l18 18" />
-      <path d="M9.9 4.24A10.94 10.94 0 0 1 12 4c5 0 9.27 3.11 11 8-1.04 2.96-3.22 5.24-5.96 6.42" />
-      <path d="M6.23 6.23A11.2 11.2 0 0 0 1 12c1.73 4.89 6 8 11 8 1.71 0 3.34-.36 4.82-1.01" />
+      <path d="m3 7 9-4 9 4-9 4-9-4Z" />
+      <path d="M3 7v10l9 4 9-4V7" />
+      <path d="M12 11v10" />
+    </svg>
+  );
+}
+
+function MergeIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M8 7h6a4 4 0 1 1 0 8H8" />
+      <path d="m11 10-3-3-3 3" />
+      <path d="m5 17 3 3 3-3" />
     </svg>
   );
 }
@@ -43,12 +56,13 @@ interface SupportContent {
   precisionLabel: string;
   precisionHint: string;
   focusLabel: string;
-  focusTitle: string;
   focusPoints: string[];
-  boundariesTitle: string;
-  boundariesDescription: string;
-  detectionBadge: string;
   annotationLabel: string;
+  perspectiveBadge: string;
+  perspectiveModes: string[];
+  perspectiveHint: string;
+  mergeBadge: string;
+  mergeHint: string;
   privacyBadge: string;
   privacyModes: string[];
   privacyClearLabel: string;
@@ -57,21 +71,19 @@ interface SupportContent {
   afterLabel: string;
 }
 
-const heroToolbar = ["Arrow", "Text", "Shape", "Highlight", "Blur"];
 const tileClassName =
   "card-system-template relative overflow-hidden rounded-[28px]";
 
 const featureTileHoverShadow =
   "0 18px 38px -20px rgba(0,0,0,0.22), 0 12px 28px -22px rgba(82,102,235,0.18), var(--bright-rim)";
 
-type CardId = "capture" | "annotate" | "focus" | "boundaries" | "redact";
+type CardId = "capture" | "annotate" | "merge" | "perspective";
 
 const glowPositions: Record<CardId, { left: string; top: string; size: string }> = {
   capture: { left: "12%", top: "20%", size: "24rem" },
   annotate: { left: "65%", top: "18%", size: "18rem" },
-  focus: { left: "68%", top: "42%", size: "16rem" },
-  boundaries: { left: "18%", top: "68%", size: "16rem" },
-  redact: { left: "70%", top: "72%", size: "22rem" },
+  merge: { left: "50%", top: "24%", size: "24rem" },
+  perspective: { left: "50%", top: "68%", size: "22rem" },
 };
 
 export function FeatureShowcase() {
@@ -80,15 +92,7 @@ export function FeatureShowcase() {
   const featuresData = t<Record<string, FeatureContent>>("showcase.features");
   const support = t<SupportContent>("showcase.support");
   const [activeCard, setActiveCard] = useState<CardId>("capture");
-  const [privacyMode, setPrivacyMode] = useState(0);
 
-  useEffect(() => {
-    if (prefersReducedMotion) return;
-    const interval = window.setInterval(() => {
-      setPrivacyMode((current) => (current + 1) % 2);
-    }, 2800);
-    return () => window.clearInterval(interval);
-  }, [prefersReducedMotion]);
 
   const sectionVariants = {
     hidden: {},
@@ -143,8 +147,8 @@ export function FeatureShowcase() {
         <MotionDiv className="grid grid-cols-1 gap-5 lg:grid-cols-12 lg:gap-6" variants={sectionVariants}>
           <MotionArticle
             variants={tileVariants}
-            onHoverStart={() => setActiveCard("capture")}
-            className={`${tileClassName} min-h-[460px] p-7 md:p-10 lg:col-span-6 lg:row-span-2`}
+            onHoverStart={() => setActiveCard("merge")}
+            className={`${tileClassName} min-h-[420px] p-7 md:min-h-[480px] lg:min-h-[500px] md:p-10 lg:col-span-12`}
             whileHover={
               prefersReducedMotion
                 ? undefined
@@ -165,84 +169,42 @@ export function FeatureShowcase() {
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             />
             <MotionDiv
-              className="relative z-10 max-w-md"
+              className="relative z-10 max-w-md lg:max-w-[22rem]"
               whileHover={prefersReducedMotion ? undefined : { x: 4, y: -2 }}
               transition={hoverTransition}
             >
-              <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--accent-soft)] text-[var(--accent)]">
-                <CaptureIcon />
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)]/84 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+                <MergeIcon />
+                {support?.mergeBadge}
               </div>
               <h3 className="text-3xl font-bold tracking-tight text-[var(--text-primary)] md:text-4xl">
-                {featuresData?.capture?.title}
+                {featuresData?.merge?.title}
               </h3>
               <p className="mt-4 max-w-[34ch] text-base leading-7 text-[var(--text-secondary)] md:text-lg">
-                {featuresData?.capture?.description}
+                {featuresData?.merge?.description}
               </p>
             </MotionDiv>
 
-            <div className="absolute inset-x-0 bottom-0 top-[38%]">
-              <div className="absolute inset-x-10 bottom-8 top-0 rounded-[32px] border border-white/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.01))] shadow-[0_28px_48px_-28px_rgba(0,0,0,0.65)]" />
-              <div className="absolute inset-x-14 bottom-12 top-6 overflow-hidden rounded-[24px] border border-[var(--border)] bg-[var(--surface)] shadow-[var(--bright-rim)]">
-                <div className="flex h-11 items-center gap-2 border-b border-[var(--border)] bg-[var(--surface)] px-4">
-                  <span className="h-3 w-3 rounded-full bg-[#ff6b6b]/70" />
-                  <span className="h-3 w-3 rounded-full bg-[#ffd166]/70" />
-                  <span className="h-3 w-3 rounded-full bg-[#80ed99]/70" />
-                  <div className="ml-4 h-6 flex-1 rounded-full bg-[var(--border-soft)]/80" />
-                </div>
-
-                <div className="border-b border-[var(--border)] px-5 py-3">
-                  <div className="flex flex-wrap gap-2">
-                    {heroToolbar.map((item) => (
-                      <span
-                        key={item}
-                        className="rounded-full border border-[var(--border)] bg-[var(--surface-elevated)] px-3 py-1 text-[11px] font-medium text-[var(--text-muted)]"
-                      >
-                        {item}
-                      </span>
-                    ))}
+            <div className="relative z-10 mt-10 lg:absolute lg:bottom-8 lg:right-8 lg:top-8 lg:mt-0 lg:w-[min(60%,48rem)]">
+              <div className="lg:h-full rounded-[32px] border border-white/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.01))] p-4 shadow-[0_28px_48px_-28px_rgba(0,0,0,0.65)]">
+                <div className="relative aspect-video lg:aspect-auto lg:h-full w-full overflow-hidden rounded-[24px] border border-[var(--border)] bg-[var(--surface)] shadow-[var(--bright-rim)]">
+                  <video
+                    className="absolute inset-0 h-full w-full object-cover object-center"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    aria-label={featuresData?.merge?.title || "Drag to Merge demo"}
+                  >
+                    <source src="/images/merge-by-drag.mp4" type="video/mp4" />
+                  </video>
+                  <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full border border-white/15 bg-[rgba(12,16,26,0.62)] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/78 backdrop-blur-md">
+                    <span className="h-2 w-2 rounded-full bg-[var(--accent)] shadow-[0_0_12px_rgba(82,102,235,0.8)]" />
+                    {support?.mergeHint}
                   </div>
-                </div>
-
-                <div className="grid h-[calc(100%-92px)] grid-cols-[78px_minmax(0,1fr)] bg-[var(--panel)]">
-                  <div className="border-r border-[var(--border)] bg-[var(--surface)]/90 px-3 py-4">
-                    <div className="space-y-2">
-                      {[0, 1, 2, 3, 4].map((item) => (
-                        <div key={item} className="h-8 rounded-xl bg-[var(--border-soft)]/70" />
-                      ))}
-                    </div>
-                  </div>
-                  <div className="relative">
-                    <Image
-                      src="/images/feature_capture.png"
-                      alt={featuresData?.capture?.title || ""}
-                      fill
-                      className="object-cover object-top"
-                      priority
-                    />
-                    <MotionDiv
-                      className="absolute h-9 w-9 rounded-full border border-[var(--accent)]/55 shadow-[0_0_24px_rgba(82,102,235,0.26)]"
-                      animate={
-                        prefersReducedMotion
-                          ? { x: 0, y: 0 }
-                          : { x: [56, 112, 84, 138, 56], y: [28, 46, 78, 52, 28] }
-                      }
-                      transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                      <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-[var(--accent)]/75" />
-                      <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-[var(--accent)]/75" />
-                      <span className="absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-[var(--accent)] bg-[var(--surface-elevated)]" />
-                    </MotionDiv>
-                    <div className="absolute bottom-10 left-8 right-16 rounded-[22px] border border-white/8 bg-[linear-gradient(180deg,rgba(16,17,23,0.18),rgba(16,17,23,0.45))] p-4 backdrop-blur-sm">
-                      <div className="mb-3 flex items-center gap-2 text-[11px] font-semibold text-[var(--accent)]/82">
-                        <span className="h-2 w-2 rounded-full bg-[var(--accent)]" />
-                        XenSnip
-                      </div>
-                      <div className="grid grid-cols-3 gap-2">
-                        <div className="h-16 rounded-2xl bg-white/7" />
-                        <div className="h-16 rounded-2xl bg-white/10" />
-                        <div className="h-16 rounded-2xl bg-white/7" />
-                      </div>
-                    </div>
+                  <div className="absolute bottom-5 left-5 rounded-full border border-white/12 bg-[rgba(12,16,26,0.48)] px-4 py-2 text-sm font-medium text-white/84 backdrop-blur-md">
+                    Merge two captures without breaking flow.
                   </div>
                 </div>
               </div>
@@ -252,7 +214,7 @@ export function FeatureShowcase() {
           <MotionArticle
             variants={tileVariants}
             onHoverStart={() => setActiveCard("annotate")}
-            className={`${tileClassName} min-h-[220px] p-7 md:p-8 lg:col-span-6`}
+            className={`${tileClassName} min-h-[160px] p-5 md:min-h-[170px] md:p-6 lg:col-span-6`}
             whileHover={
               prefersReducedMotion
                 ? undefined
@@ -286,7 +248,7 @@ export function FeatureShowcase() {
                 </p>
               </div>
 
-              <div className="relative mt-8 h-28 overflow-hidden rounded-[22px] border border-[var(--border)] bg-[linear-gradient(180deg,rgba(82,102,235,0.05),rgba(82,102,235,0.01))]">
+              <div className="relative mt-4 h-20 overflow-hidden rounded-[22px] border border-[var(--border)] bg-[linear-gradient(180deg,rgba(82,102,235,0.05),rgba(82,102,235,0.01))]">
                 <div className="absolute inset-0 opacity-70" style={{ backgroundImage: "linear-gradient(rgba(82,102,235,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(82,102,235,0.08) 1px, transparent 1px)", backgroundSize: "18px 18px" }} />
                 <div className="absolute inset-y-0 left-[42%] w-px bg-[var(--accent)]/65 shadow-[0_0_16px_rgba(82,102,235,0.65)]" />
                 <div className="absolute inset-x-0 top-[55%] h-px bg-[var(--accent)]/65 shadow-[0_0_16px_rgba(82,102,235,0.65)]" />
@@ -335,8 +297,8 @@ export function FeatureShowcase() {
 
           <MotionArticle
             variants={tileVariants}
-            onHoverStart={() => setActiveCard("focus")}
-            className={`${tileClassName} min-h-[180px] p-7 md:p-8 lg:col-span-6`}
+            onHoverStart={() => setActiveCard("capture")}
+            className={`${tileClassName} min-h-[160px] p-5 md:min-h-[170px] md:p-6 lg:col-span-6`}
             whileHover={
               prefersReducedMotion
                 ? undefined
@@ -348,6 +310,7 @@ export function FeatureShowcase() {
             }
             transition={hoverTransition}
           >
+            <span className="absolute inset-0 bg-[radial-gradient(circle_at_top_center,rgba(82,102,235,0.16),transparent_42%)]" />
             <MotionDiv
               aria-hidden
               className="pointer-events-none absolute inset-y-0 left-[-20%] w-1/3 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.05),transparent)]"
@@ -355,137 +318,46 @@ export function FeatureShowcase() {
               whileHover={prefersReducedMotion ? undefined : { x: "340%" }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             />
-            <div className="relative z-10 flex h-full flex-col justify-between gap-8 md:flex-row md:items-end">
-              <div className="max-w-[16rem]">
-                <div className="mb-5 text-[11px] font-medium text-[var(--text-muted)]">
+            <div className="relative z-10 flex h-full flex-col justify-between">
+              <div className="max-w-[20rem]">
+                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)]/84 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+                  <CaptureIcon />
                   {support?.focusLabel}
                 </div>
-                <div className="space-y-4">
-                  {support?.focusPoints?.map((item) => (
-                    <div key={item} className="flex items-center gap-3 text-[15px] text-[var(--text-secondary)]">
-                      <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[var(--border)] text-[var(--text-muted)]">
-                        <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]/75" />
-                      </span>
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="max-w-[22rem] md:text-right">
-                <h3 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)] md:text-[2rem]">
-                  {support?.focusTitle}
+                <h3 className="text-2xl font-bold tracking-tight text-[var(--text-primary)] md:text-[2rem]">
+                  {featuresData?.capture?.title}
                 </h3>
-              </div>
-            </div>
-          </MotionArticle>
-
-          <MotionArticle
-            variants={tileVariants}
-            onHoverStart={() => setActiveCard("boundaries")}
-            className={`${tileClassName} min-h-[240px] p-7 md:p-8 lg:col-span-4`}
-            whileHover={
-              prefersReducedMotion
-                ? undefined
-                : {
-                    scale: 1.015,
-                    y: -4,
-                    boxShadow: featureTileHoverShadow,
-                  }
-            }
-            transition={hoverTransition}
-          >
-            <MotionDiv
-              aria-hidden
-              className="pointer-events-none absolute inset-y-0 left-[-20%] w-1/3 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent)]"
-              initial={{ x: "-160%" }}
-              whileHover={prefersReducedMotion ? undefined : { x: "340%" }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            />
-            <div className="relative z-10 flex h-full flex-col justify-between">
-              <div className="max-w-[22ch]">
-                <h3 className="text-2xl font-bold tracking-tight text-[var(--text-primary)]">
-                  {support?.boundariesTitle}
-                </h3>
-                <p className="mt-3 text-base leading-7 text-[var(--text-secondary)]">
-                  {support?.boundariesDescription}
+                <p className="mt-3 max-w-[32ch] text-base leading-7 text-[var(--text-secondary)]">
+                  {featuresData?.capture?.description}
                 </p>
               </div>
 
-              <div className="relative mt-8 h-36 overflow-hidden rounded-[24px] border border-[var(--border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))] shadow-[0_18px_36px_-24px_rgba(0,0,0,0.7),var(--bright-rim)]">
-                <div className="absolute inset-x-0 bottom-0 top-10 bg-[radial-gradient(circle_at_left_bottom,rgba(82,102,235,0.10),transparent_34%)]" />
-
-                <div className="absolute right-4 top-9 h-24 w-28 rounded-[20px] border border-[var(--border)] bg-[linear-gradient(180deg,rgba(248,249,250,0.96),rgba(226,232,240,0.88))] opacity-90 shadow-[var(--bright-rim)] dark:bg-[linear-gradient(180deg,rgba(244,246,250,0.96),rgba(214,220,230,0.88))]">
-                  <div className="flex h-6 items-center gap-1 px-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#ff6b6b]/75" />
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#ffd166]/75" />
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#80ed99]/75" />
+              <div className="mt-4 flex flex-wrap gap-2">
+                {support?.focusPoints?.map((item) => (
+                  <div
+                    key={item}
+                    className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)]/84 px-3 py-2 text-sm text-[var(--text-secondary)] shadow-[0_16px_30px_-22px_rgba(0,0,0,0.45)]"
+                  >
+                    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[var(--border)] text-[var(--text-muted)]">
+                      <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]/75" />
+                    </span>
+                    <span>{item}</span>
                   </div>
+                ))}
+              </div>
+
+              <div className="mt-3.5 rounded-[24px] border border-[var(--border)] bg-[linear-gradient(180deg,rgba(82,102,235,0.05),rgba(82,102,235,0.01))] px-3.5 py-3 shadow-[0_22px_38px_-26px_rgba(0,0,0,0.45),var(--bright-rim)]">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+                    {support?.precisionLabel}
+                  </span>
+                  <span className="rounded-full border border-[var(--border)] bg-[var(--surface)]/92 px-3 py-1 text-xs text-[var(--text-muted)]">
+                    {support?.precisionHint}
+                  </span>
                 </div>
-
-                <div className="absolute bottom-4 left-4 right-14 top-5 rounded-[22px] border border-[var(--border)] bg-[var(--panel)] shadow-[0_22px_36px_-24px_rgba(0,0,0,0.7),var(--bright-rim)]">
-                  <div className="flex h-7 items-center gap-1.5 border-b border-[var(--border)] px-3">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#ff6b6b]/75" />
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#ffd166]/75" />
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#80ed99]/75" />
-                    <div className="ml-3 h-3 flex-1 rounded-full bg-[var(--border-soft)]/80" />
-                  </div>
-
-                  <div className="grid h-[calc(100%-28px)] grid-cols-[42px_minmax(0,1fr)]">
-                    <div className="border-r border-[var(--border)] bg-[var(--surface)]/92 px-2 py-3">
-                      <div className="space-y-2">
-                        {[0, 1, 2, 3].map((item) => (
-                          <div key={item} className="h-5 rounded-lg bg-[var(--border-soft)]/70" />
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="relative overflow-hidden px-3 py-3">
-                      <div className="mb-2 flex items-center gap-2">
-                        <div className="h-5 w-16 rounded-full bg-[var(--accent)]/18" />
-                        <div className="h-5 w-10 rounded-full bg-[var(--border-soft)]/75" />
-                      </div>
-                      <div className="grid grid-cols-[68px_minmax(0,1fr)] gap-3">
-                        <div className="space-y-2">
-                          {[0, 1, 2, 3].map((item) => (
-                            <div key={item} className="h-4 rounded-md bg-[var(--border-soft)]/65" />
-                          ))}
-                        </div>
-                        <div className="space-y-2">
-                          {[0, 1, 2].map((item) => (
-                            <div key={item} className="rounded-xl border border-[var(--border)] bg-[var(--surface)]/78 p-2">
-                              <div className="mb-1 h-2.5 w-2/3 rounded-full bg-[var(--border-soft)]/80" />
-                              <div className="h-2 w-full rounded-full bg-[var(--border-soft)]/55" />
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <MotionDiv
-                        className="absolute inset-2 rounded-[18px] border-2 border-[var(--accent)] bg-[var(--accent)]/7 shadow-[0_0_0_1px_rgba(255,255,255,0.06),0_0_30px_rgba(82,102,235,0.14)]"
-                        animate={
-                          prefersReducedMotion
-                            ? { boxShadow: "0 0 0 1px rgba(255,255,255,0.06),0 0 18px rgba(82,102,235,0.1)" }
-                            : { boxShadow: [
-                              "0 0 0 1px rgba(255,255,255,0.06),0 0 18px rgba(82,102,235,0.08)",
-                              "0 0 0 1px rgba(255,255,255,0.08),0 0 28px rgba(82,102,235,0.22)",
-                              "0 0 0 1px rgba(255,255,255,0.06),0 0 18px rgba(82,102,235,0.08)",
-                            ] }
-                        }
-                        transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
-                      >
-                        <div className="absolute -right-3 -top-3 rounded-full bg-[var(--accent)] px-3 py-1 text-[10px] font-medium text-white shadow-[0_12px_24px_-14px_rgba(82,102,235,0.9)]">
-                          {support?.detectionBadge}
-                        </div>
-                        {["-top-1.5 -left-1.5", "-top-1.5 -right-1.5", "-bottom-1.5 -left-1.5", "-bottom-1.5 -right-1.5"].map((position) => (
-                          <span
-                            key={position}
-                            className={`absolute h-3 w-3 rounded-full border-2 border-[var(--accent)] bg-white ${position}`}
-                          />
-                        ))}
-                      </MotionDiv>
-                    </div>
-                  </div>
+                <div className="mt-3 h-px bg-[linear-gradient(90deg,transparent,rgba(82,102,235,0.35),transparent)]" />
+                <div className="mt-3 text-sm leading-5 text-[var(--text-secondary)]">
+                  Clean targeting, smart window edges, and less corrective cropping after capture.
                 </div>
               </div>
             </div>
@@ -493,8 +365,8 @@ export function FeatureShowcase() {
 
           <MotionArticle
             variants={tileVariants}
-            onHoverStart={() => setActiveCard("redact")}
-            className={`${tileClassName} min-h-[240px] p-7 md:p-8 lg:col-span-8`}
+            onHoverStart={() => setActiveCard("perspective")}
+            className={`${tileClassName} min-h-[240px] p-7 md:p-10 lg:col-span-12`}
             whileHover={
               prefersReducedMotion
                 ? undefined
@@ -506,7 +378,7 @@ export function FeatureShowcase() {
             }
             transition={hoverTransition}
           >
-            <span className="absolute inset-0 bg-[radial-gradient(circle_at_top_center,rgba(82,102,235,0.12),transparent_42%)]" />
+            <span className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(82,102,235,0.2),transparent_48%)]" />
             <MotionDiv
               aria-hidden
               className="pointer-events-none absolute inset-y-0 left-[-20%] w-1/3 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent)]"
@@ -516,28 +388,29 @@ export function FeatureShowcase() {
             />
             <div className="relative z-10 flex h-full flex-col justify-between">
               <div className="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
-                <div className="max-w-[24rem]">
-                  <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--accent-soft)] text-[var(--accent)]">
-                    <RedactIcon />
+                <div className="max-w-[48rem]">
+                  <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)]/84 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">
+                    <PerspectiveIcon />
+                    {support?.perspectiveBadge}
                   </div>
                   <h3 className="text-2xl font-bold tracking-tight text-[var(--text-primary)]">
-                    {featuresData?.redact?.title}
+                    {featuresData?.perspective?.title}
                   </h3>
                   <p className="mt-3 text-base leading-7 text-[var(--text-secondary)]">
-                    {featuresData?.redact?.description}
+                    {featuresData?.perspective?.description}
                   </p>
                 </div>
 
                 <div className="inline-flex w-fit rounded-full border border-[var(--border)] bg-[var(--surface)]/88 p-1 shadow-[0_12px_24px_-18px_rgba(0,0,0,0.55),var(--bright-rim)]">
-                  {support?.privacyModes?.map((mode, index) => (
+                  {support?.perspectiveModes?.map((mode, index) => (
                     <MotionSpan
                       key={mode}
                       className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                        index === privacyMode
-                          ? "bg-[var(--accent)]/14 text-[var(--accent)]"
+                        index === 1
+                          ? "bg-[var(--accent)] text-white"
                           : "text-[var(--text-muted)]"
                       }`}
-                      animate={index === privacyMode ? { scale: prefersReducedMotion ? 1 : [1, 1.03, 1] } : { scale: 1 }}
+                      animate={index === 1 ? { scale: prefersReducedMotion ? 1 : [1, 1.03, 1] } : { scale: 1 }}
                       transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                     >
                       {mode}
@@ -547,71 +420,15 @@ export function FeatureShowcase() {
               </div>
 
               <div className="relative mt-8 overflow-hidden rounded-[24px] border border-[var(--border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01))] shadow-[0_22px_42px_-30px_rgba(0,0,0,0.75),var(--bright-rim)]">
-                <div className="grid gap-px bg-[var(--border)] md:grid-cols-2">
-                  <div className="bg-[var(--surface-elevated)] px-5 py-5">
-                    <div className="mb-3 text-[11px] font-medium text-[var(--text-muted)]">
-                      {support?.privacyClearLabel}
-                    </div>
-                    <div className="space-y-3">
-                      <div className="rounded-2xl border border-[var(--border)] bg-[var(--background)]/72 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
-                        <div className="mb-2 text-[10px] font-medium text-[var(--text-muted)]">API Key</div>
-                        <div className="font-mono text-sm text-[var(--text-secondary)]">sk-live-51NxA...8f92a1</div>
-                      </div>
-                      <div className="rounded-2xl border border-[var(--border)] bg-[var(--background)]/72 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
-                        <div className="mb-2 text-[10px] font-medium text-[var(--text-muted)]">Email</div>
-                        <div className="font-mono text-sm text-[var(--text-secondary)]">ops@xensnip.app</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="relative overflow-hidden bg-[var(--surface-elevated)] px-5 py-5">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(82,102,235,0.08),transparent_62%)]" />
-                    <div className="mb-3 text-[11px] font-medium text-[var(--text-muted)]">
-                      {support?.privacyMaskedLabel}
-                    </div>
-                    <div className="relative space-y-3">
-                      <div className="relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--background)]/62 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
-                        <div className="mb-2 text-[10px] font-medium text-[var(--text-muted)]">API Key</div>
-                        <div className="font-mono text-sm text-transparent select-none">sk-live-51NxA...8f92a1</div>
-                        <MotionDiv
-                          className="absolute inset-x-4 bottom-3 top-7 overflow-hidden rounded-xl border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.10),rgba(255,255,255,0.04))] shadow-[var(--bright-rim)] backdrop-blur-xl"
-                          animate={{ opacity: privacyMode === 0 ? 1 : 0.42 }}
-                          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                        >
-                          <div className="absolute inset-0 opacity-15 mix-blend-overlay" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }} />
-                          <div className="absolute inset-0 blur-[12px]" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.14), rgba(82,102,235,0.18), rgba(255,255,255,0.08))" }} />
-                        </MotionDiv>
-                      </div>
-
-                      <div className="relative overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--background)]/62 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
-                        <div className="mb-2 text-[10px] font-medium text-[var(--text-muted)]">Email</div>
-                        <div className="font-mono text-sm text-transparent select-none">ops@xensnip.app</div>
-                        <MotionDiv
-                          className="absolute inset-x-4 bottom-3 top-7 grid grid-cols-11 gap-1 rounded-xl"
-                          animate={{ opacity: privacyMode === 1 ? 1 : 0.42 }}
-                          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                        >
-                          {Array.from({ length: 22 }).map((_, index) => (
-                            <MotionSpan
-                              key={index}
-                              className="h-3 rounded-[4px] bg-[var(--accent)]/18 shadow-[0_0_10px_rgba(82,102,235,0.08)]"
-                              animate={
-                                prefersReducedMotion || privacyMode !== 1
-                                  ? { opacity: 1 }
-                                  : { opacity: [0.72, 1, 0.72] }
-                              }
-                              transition={{ duration: 1.2, repeat: Infinity, delay: index * 0.02, ease: "easeInOut" }}
-                            />
-                          ))}
-                        </MotionDiv>
-                      </div>
-                    </div>
-
-                    <div className="pointer-events-none absolute right-4 top-4">
-                      <span className="rounded-full border border-[var(--accent)]/22 bg-[var(--accent)]/12 px-3 py-1.5 text-xs font-medium text-[var(--text-secondary)] shadow-[0_0_20px_rgba(82,102,235,0.14)]">
-                        {support?.privacyBadge}
-                      </span>
-                    </div>
+                <div className="relative w-full overflow-hidden">
+                  <Image
+                    src={perspectiveFrameImg}
+                    alt={featuresData?.perspective?.title || ""}
+                    className="w-full h-auto object-contain block"
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,11,17,0.02),rgba(9,11,17,0.28))] pointer-events-none" />
+                  <div className="absolute bottom-4 left-4 rounded-full border border-white/18 bg-[rgba(12,16,26,0.52)] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/84 backdrop-blur-md">
+                    {support?.perspectiveHint}
                   </div>
                 </div>
               </div>

@@ -69,6 +69,14 @@
         "title": "Vẽ bậy nhưng rất Pro",
         "description": "Kẻ mũi tên, đóng khung, viết chữ mượt mà. Không có mấy cái thanh công cụ rườm rà đâu."
       },
+      "perspective": {
+        "title": "Khung 2.5D có phối cảnh",
+        "description": "Biến ảnh chụp phẳng thành bề mặt trình bày có chiều sâu, có góc nhìn và xuất ra nhìn là thấy chỉn chu."
+      },
+      "merge": {
+        "title": "Kéo để gộp ảnh",
+        "description": "Kéo một capture vào capture khác để tạo composition 2 ảnh sạch sẽ mà không phải khởi động lại workflow."
+      },
       "redact": {
         "title": "Che giấu danh tính",
         "description": "Bảo mật thông tin \"nhạy cảm\" bằng cách làm mờ hoặc pixelate. 1 click là bay màu."
@@ -84,6 +92,12 @@
       "boundariesDescription": "Tự nhận viền cửa sổ, giữ tỷ lệ sạch sẽ và snap đúng vùng mà bạn thật sự muốn chụp.",
       "detectionBadge": "Tự dò biên",
       "annotationLabel": "Ghi chú nhanh",
+      "perspectiveBadge": "Studio Mode",
+      "perspectiveModes": ["2D", "2.5D"],
+      "perspectiveHint": "Khung nghiêng sẵn để xuất",
+      "mergeBadge": "Nâng cấp workflow",
+      "mergeHint": "Kéo để gộp",
+      "mergeStep": "Sắp hai capture vào chung một canvas chỉ bằng một thao tác kéo.",
       "privacyBadge": "Làm mờ thông minh",
       "privacyModes": ["Blur", "Pixelate"],
       "privacyClearLabel": "Trước khi che",

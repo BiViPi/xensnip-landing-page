@@ -69,6 +69,14 @@
         "title": "Professional Annotation",
         "description": "Add beautiful, semantic arrows, text, and shapes without cluttered toolbars."
       },
+      "perspective": {
+        "title": "2.5D Perspective Frame",
+        "description": "Turn a flat screenshot into a polished presentation surface with angled framing, depth, and studio-ready output."
+      },
+      "merge": {
+        "title": "Drag to Merge",
+        "description": "Pull one capture into another and build a clean two-image composition without restarting your workflow."
+      },
       "redact": {
         "title": "Secure Redaction",
         "description": "Safely blur or pixelate sensitive information with a single click."
@@ -84,6 +92,12 @@
       "boundariesDescription": "Detect window edges, preserve clean proportions, and snap to the area you actually meant to capture.",
       "detectionBadge": "Auto-Detect",
       "annotationLabel": "Quick annotate",
+      "perspectiveBadge": "Studio Mode",
+      "perspectiveModes": ["2D", "2.5D"],
+      "perspectiveHint": "Angled export-ready framing",
+      "mergeBadge": "Workflow Upgrade",
+      "mergeHint": "Drag to merge",
+      "mergeStep": "Arrange two captures into one canvas with a single gesture.",
       "privacyBadge": "Smart Blur",
       "privacyModes": ["Blur", "Pixelate"],
       "privacyClearLabel": "Before redaction",
